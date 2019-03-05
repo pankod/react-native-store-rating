@@ -10,9 +10,9 @@ export interface IProps {
 	rateBtnText: string;
 	sendBtnText: string;
 	commentOpenRating: number;
-	ratingOnChange: (e: number) => number;
+	ratingOnChange: (e: number) => void;
 	onClosed: () => void;
-	sendContactUsForm: (state: IState) => IState;
+	sendContactUsForm: (state: IState) => void;
 	androidUrl?: string;
 	iosUrl?: string;
 }
