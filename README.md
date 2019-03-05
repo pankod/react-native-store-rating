@@ -55,8 +55,19 @@ $ yarn add react-native-store-rating
 ## Usage
 Users are presented with a modal allowing them to choose amount of stars which is defined with `count` props.
 
-After prompting rate users redirect to App store or Google Market, if they give more then stars which is defined on `commentOpenRating`, otherwise comment pop up will open and allow them to write a review.
+The star rate taken from the users is compared to the value defined in "commentOpenRating". If this value is greater than the value of "commentOpenRating", the user is directed to the App store or Google Play Store. If it is equal and smaller, comment popup will be opened and users will be allowed to type comment.
 
+`Example: let's say we defined 3 to commentOpenRating prop`
+```javascript
+<RateModal
+	commentOpenRating={3}
+	// ... props
+/>
+```
+
+`User redirect to App Store or Google Play Store when the given star rate is greater then 3.`
+
+`Comment modal will be opened if the given star rate equal or less then 3.`
 
 
 ## Example
@@ -83,14 +94,14 @@ export default class example extends Component {
                     backgroundColor: '#000',
                     paddingHorizontal: 30,
                 }}
-                ratingChange={(e: number) => {
+                ratingOnChange={(e: number) => {
                     console.log('change rating', e);
                 }}
                 onClosed={() => {
                     console.log('pressed cancel button...')
                 }}
                 sendContactUsForm={(state: object) => {
-                    // object = {
+                    // state = {
                     // 	isModalOpen: true,
                     // 	rating: 3,
                     // 	review: "Lorem ipsum dolor sit amet...",
@@ -118,29 +129,21 @@ export default class example extends Component {
 | **defaulRating** | `number` | If no number set, it will determine 3 stars rating.               |  `5` | &nbsp;&nbsp; false
 | **showRating**      | `boolean` | Shows rating on modal. | ` true`   | &nbsp;&nbsp; false
 | **sendBtnText** | `string`  | The text of send button. | `"Send"` |  &nbsp;&nbsp; false
-| **placeHolderText** | `string` | The placeholder text. | `"You can write your comments here"` | &nbsp;&nbsp; false
-| **transparent** |`string` | ? | `true` | &nbsp;&nbsp; false
+| **placeHolderText** | `string` | User review modal placeholder text. | `"You can write your comments here"` | &nbsp;&nbsp; false
+| **transparent** |`boolean` | Background style | `true` | &nbsp;&nbsp; false
 | **reviews** | `array` | The array of rating title. | `['Terrible', 'Bad', 'Okay', 'Good', 'Great']` | &nbsp;&nbsp; false
-| **nonComment** | `string`  | ? | `Please specify your opinion.` | &nbsp;&nbsp; false
-| **androidUrl** | `string`  |  <br> `example: `'market://details?id=${APP_PACKAGE_NAME}'| `? ` | &nbsp;&nbsp; false
-| **iosUrl** | `string`  | ? | `?` | &nbsp;&nbsp; false
+| **nonComment** | `string`  | User review comment box validation text | `"Please specify your opinion."` | &nbsp;&nbsp; false
 | **isModalOpen** | `boolean`  | Control if the modal open or not. | `false` | &nbsp;&nbsp; false
 | **commentOpenRating** | `number`  | ? | `3` | &nbsp;&nbsp; false
-| **style** | `Object`  | An object containing the styles objects to style the modal. | `?` | &nbsp;&nbsp; false
-| **ratingOnChange** | `Function`  | Function  fired when the rating has changed.| `?` | &nbsp;&nbsp; false
-| **onClosed** | `Function`  | Function fired when the modal has closed.| `?` | &nbsp;&nbsp; false
-| **sendContactUsForm** | `Function`  | ?| `?` | &nbsp;&nbsp; false
-
+| **style** | `Object`  | An object containing the styles objects to style the modal. | `example:`<br>`{ backgroundColor: #000, paddingHorizontal: 30 }` | &nbsp;&nbsp; false
+| **ratingOnChange** | `Function`  | Function fired when the rating has changed.| `return: number` | &nbsp;&nbsp; false
+| **onClosed** | `Function`  | Function fired when the modal has closed.| `console.warn('pressed cancel button...')` | &nbsp;&nbsp; false
+| **sendContactUsForm** | `Function`  | Read component state and function fired when send bottom click | `{ isModalOpen: true, rating: 3, review: "Lorem ipsum dolor sit amet...", reviewError:false, showContactForm:true }` | &nbsp;&nbsp; true
+| **androidUrl** | `string`  | Google Play Store App Url <br> `market://details?id=${APP_PACKAGE_NAME}` | | &nbsp;&nbsp; true
+| **iosUrl** | `string`  | Apple ITunes App Url <br> `itms-apps://itunes.apple.com/app/${APP_ID}`| | &nbsp;&nbsp; true
 <br/>
 <br/>
 
-#### Package Names (Google Play & Android) and Bundle Identifiers:
-
-We recommend to followings, if you want to keep package name and Bundle Identifier.
-
-- All lowercase letters
-- No numbers
-- Use reverse domain style: com.website.appname
 
 #### Notes
 
