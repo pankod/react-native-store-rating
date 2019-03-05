@@ -1,10 +1,32 @@
-# React Native Store Rating
-React Native Store Rating is a cross platform solution to getting users to easily rate your app. 
+# react-native-store-rating
 
-If the user gives 3 points, the user directs to the market/store,if the user gives 3 points or less than three points, the comment window opens.
+<div align="center">
+ <img src="./screenshots/shoot_1.png" width="250">
+ <img src="./screenshots/shoot_2.png" width="250">
+</div>
 
-<img src="./screenshots/shoot_1.png" width="250">
-<img src="./screenshots/shoot_2.png" width="250">
+<br/>
+<div align="center" >React Native Module to getting users to easily rate your app. 
+
+<br/>
+
+[![npm version](https://img.shields.io/npm/v/react-native-store-rating.svg)](https://www.npmjs.com/package/react-responsive-modal)
+[![npm downloads per month](https://img.shields.io/npm/dm/react-native-store-rating.svg)](https://www.npmjs.com/package/react-responsive-modal)
+[![dependencies Status](https://david-dm.org/pankod/react-native-store-rating/status.svg)](https://david-dm.org/pradel/react-responsive-modal)
+
+<br/>
+  <sub>Created by <a href="https://www.pankod.com">Pankod</a></sub>
+</div>
+<br/>
+
+
+
+
+Ratings and reviews influence how your app ranks in search results, and can affect whether someone downloads your app. Users can rate your app on a scale of desired amount of stars. They can also add a written review for iOS and Android apps.
+
+
+
+
 
 ## Stores Supported:
 |                                                                 **Apple App Store**                                                                 |                                                              **Google Play**                                                              |                                                                              |
@@ -28,6 +50,13 @@ or
 ```
 $ yarn add react-native-store-rating
 ```
+
+## Usage
+Users are presented with a modal allowing them to choose amount of stars which is defined with `count` props.
+
+Users redirect to App store or Google Market, if they give more then stars which is defined on `commentOpenRating`, otherwise comment pop up will open and allow them to write a review.
+
+
 
 ## Example
 ```javascript
@@ -75,8 +104,34 @@ export default class example extends Component {
 
 ```
 
-#### About Package Names (Google Play & Android) and Bundle Identifiers:
-If you want to keep the same package name and bundle identifier everwhere, we suggest the following:
+
+#### options
+> 🔑 *Italicize indicates optional*
+
+| Properties | Type                                | Description                                                    | Default               |
+|------------|-------------------------------------|----------------------------------------------------------------|-----------------------|
+| *rateBtnText*   | `string`                            | The button text.                                                   | `"Rate"`             |
+| *cancelBtntEXT*  | `string`                            | The cancel button text.                                                  | `"Cancel"`           |
+| *count*     | `number`                            | The starts count on modal.                                     | `3` |
+| *defaulRating* | `number` | If no number set, it will determine 3 stars rating.               |  `3`
+| *showRating*      | `boolean`                            | Shows rating on modal. | ` true`    |
+| *sendBtnText* | `string`  | The text of send button. | `"Send"` |
+| *placeHolderText* | `string` | The placeholder text. | `...` |
+| *nonComment* | `string`  | ? | `?` |
+| *androidUrl* | `string`  |  <br> `example: `'market://details?id=${APP_PACKAGE_NAME}'| `? ` |
+| *iosUrl* | `string`  | ? | `?` |
+| *isModalOpen* | `boolean`  | Control if the modal open or not. | `true` |
+| *commentOpenRating* | `number`  | ? | `?` |
+| *style* | `Object`  | An object containing the styles objects to style the modal. | `?` |
+| *ratingOnChange* | `Function`  | Function  fired when the rating has changed.| `?` |
+| *onClosed* | `Function`  | Function fired when the modal has closed.| `?` |
+| *sendContactUsForm* | `Function`  | ?| `?` |
+
+
+#### Package Names (Google Play & Android) and Bundle Identifiers:
+
+We recommend to followings, if you want to keep package name and Bundle Identifier.
+
 - All lowercase letters
 - No numbers
 - Use reverse domain style: com.website.appname
