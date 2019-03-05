@@ -6,16 +6,14 @@
 </div>
 
 <br/>
-
 <div align="center"> React Native Module to getting users to easily rate your app.</div>
-
-<br/>
-
 <div align="center"> 
+<br/>
 
 [![npm version](https://img.shields.io/npm/v/react-native-store-rating.svg)](https://www.npmjs.com/package/react-responsive-modal)
 [![npm downloads per month](https://img.shields.io/npm/dm/react-native-store-rating.svg)](https://www.npmjs.com/package/react-responsive-modal)
 [![dependencies Status](https://david-dm.org/pankod/react-native-store-rating/status.svg)](https://david-dm.org/pradel/react-responsive-modal)
+
 
 <br/>
   <sub>Created by <a href="https://www.pankod.com">Pankod</a></sub>
@@ -30,10 +28,11 @@ Ratings and reviews influence how your app ranks in search results, and can affe
 
 
 ## Stores Supported:
-| **Apple App Store** |  **Google Play** ||
- ----------: |:-------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------
+|                                                                 **Apple App Store**                                                                 |                                                              **Google Play**                                                              |                                                                              |
+| :--------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------
 |                                                         **✓**                                                         |                                                        **✓**                                                        |                                                                                                                       |
 | <img src="https://developer.apple.com/assets/elements/icons/app-store/app-store-128x128_2x.png" height="60" > |                      <img src="https://elegal.ph/site/wp-content/uploads/2017/08/google-play-icon-logo-favicon-1632434.svg_.jpg" height="60" float="right"> |
+|                                             |
 
 
 
@@ -54,7 +53,7 @@ $ yarn add react-native-store-rating
 ## Usage
 Users are presented with a modal allowing them to choose amount of stars which is defined with `count` props.
 
-Users redirect to App store or Google Market, if they give more then stars which is defined on `commentOpenRating`, otherwise comment pop up will open and allow them to write a review.
+After prompting rate users redirect to App store or Google Market, if they give more then stars which is defined on `commentOpenRating`, otherwise comment pop up will open and allow them to write a review.
 
 
 
