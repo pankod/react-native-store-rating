@@ -7,6 +7,7 @@
 
 <br/>
 <div align="center" >React Native Module to getting users to easily rate your app. 
+ 
 <br/>
 
 [![npm version](https://img.shields.io/npm/v/react-native-store-rating.svg)](https://www.npmjs.com/package/react-responsive-modal)
