@@ -34,7 +34,7 @@ class RateModal extends react_1.Component {
         const { OS } = react_native_1.Platform;
         const { count, showRating, reviews, androidUrl, iosUrl } = this.props;
         if (showRating && reviews.length !== count) {
-            throw new Error('You should 5 enter review values');
+            throw new Error('You should define at least 5 review values');
         }
         else if (OS === 'android' && !androidUrl) {
             throw new Error('Enter a valid store url');
@@ -95,7 +95,6 @@ class RateModal extends react_1.Component {
     sendContactUsForm() {
         const { sendContactUsForm } = this.props;
         if (this.state.review.length > 0) {
-            console.log(typeof sendContactUsForm);
             if (sendContactUsForm && typeof sendContactUsForm === 'function') {
                 return sendContactUsForm({ ...this.state });
             }
@@ -107,14 +106,14 @@ class RateModal extends react_1.Component {
     }
 }
 RateModal.defaultProps = {
-    modalTitle: 'How many stars do you give this app?',
+    modalTitle: 'How many stars do you give to this app?',
     cancelBtnText: 'Cancel',
     count: 5,
     defaultRating: 5,
     nonComment: 'Please specify your opinion.',
     showRating: true,
     isModalOpen: false,
-    placeHolderText: 'You can write your comments and comments here ...',
+    placeHolderText: 'You can type your comments here ...',
     rateBtnText: 'Rate',
     sendBtnText: 'Send',
     commentOpenRating: 3,
