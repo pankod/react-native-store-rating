@@ -1,43 +1,44 @@
 {
-  "compilerOptions": {
-    "baseUrl": "src",
-    "paths": {
-      "*": [
-        "types/*"
-      ]
-    },
-    "target": "esnext",
-    "moduleResolution": "node",
-    "module": "commonjs",
-    "jsx": "react",
-    "lib": [
-      "es2016",
-      "dom",
-      "es5"
-    ],
-    "declaration": true,
-    "sourceMap": true,
-    "outDir": "./dist",
-    "removeComments": true,
-    "noImplicitAny": false,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ]
-  },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "__tests__"
-  ],
-  "include": [
-    "./src/**/*.tsx",
-    "./src/**/*.ts"
-  ]
+	"compilerOptions": {
+		"baseUrl": "src",
+		"paths": {
+			"*": [
+				"types/*"
+			]
+		},
+		"target": "esnext",
+		"moduleResolution": "node",
+		"module": "commonjs",
+		"jsx": "react",
+		"lib": [
+			"es2016",
+			"dom",
+			"es5"
+		],
+		"skipLibCheck": true,
+		"declaration": true,
+		"sourceMap": true,
+		"outDir": "./dist",
+		"removeComments": true,
+		"noImplicitAny": false,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"typeRoots": [
+			"node_modules/@types"
+		]
+	},
+	"exclude": [
+		"node_modules",
+		"dist",
+		"__tests__"
+	],
+	"include": [
+		"./src/**/*.tsx",
+		"./src/**/*.ts"
+	]
 }
