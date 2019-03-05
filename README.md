@@ -1,4 +1,4 @@
-# react-native-store-rating
+# React Native Store Rating
 
 <div align="center">
  <img src="./screenshots/shoot_1.png" width="250">
@@ -7,20 +7,18 @@
 
 <br/>
 <div align="center" >React Native Module to getting users to easily rate your app. 
-
 <br/>
 
 [![npm version](https://img.shields.io/npm/v/react-native-store-rating.svg)](https://www.npmjs.com/package/react-responsive-modal)
 [![npm downloads per month](https://img.shields.io/npm/dm/react-native-store-rating.svg)](https://www.npmjs.com/package/react-responsive-modal)
 [![dependencies Status](https://david-dm.org/pankod/react-native-store-rating/status.svg)](https://david-dm.org/pradel/react-responsive-modal)
 
+
 <br/>
   <sub>Created by <a href="https://www.pankod.com">Pankod</a></sub>
 </div>
 <br/>
-
-
-
+<br/>
 
 Ratings and reviews influence how your app ranks in search results, and can affect whether someone downloads your app. Users can rate your app on a scale of desired amount of stars. They can also add a written review for iOS and Android apps.
 
