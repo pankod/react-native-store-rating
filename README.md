@@ -105,19 +105,21 @@ export default class example extends Component {
 
 ```
 
+<br/>
 
-#### options
-
+## Options
+<br/>
 
 | Properties | Type | Description |Default | Required |
 |------------|-------------------------------------|-------------|----------------------------------------------------------------|-----------------------|
 | **rateBtnText**   | `string` | The button text.    | `"Rate"`        | &nbsp;&nbsp; false
-| **cancelBtntEXT**  | `string`  | The cancel button text.  | `"Cancel"`  | &nbsp;&nbsp; false
+| **cancelBtnText**  | `string`  | The cancel button text.  | `"Cancel"`  | &nbsp;&nbsp; false
 | **count**     | `number`     | The starts count on modal.   | `5` | &nbsp;&nbsp; false
 | **defaulRating** | `number` | If no number set, it will determine 3 stars rating.               |  `5` | &nbsp;&nbsp; false
 | **showRating**      | `boolean` | Shows rating on modal. | ` true`   | &nbsp;&nbsp; false
 | **sendBtnText** | `string`  | The text of send button. | `"Send"` |  &nbsp;&nbsp; false
 | **placeHolderText** | `string` | The placeholder text. | `"You can write your comments here"` | &nbsp;&nbsp; false
+| **transparent** |`string` | ? | `true` | &nbsp;&nbsp; false
 | **reviews** | `array` | The array of rating title. | `['Terrible', 'Bad', 'Okay', 'Good', 'Great']` | &nbsp;&nbsp; false
 | **nonComment** | `string`  | ? | `Please specify your opinion.` | &nbsp;&nbsp; false
 | **androidUrl** | `string`  |  <br> `example: `'market://details?id=${APP_PACKAGE_NAME}'| `? ` | &nbsp;&nbsp; false
