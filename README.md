@@ -6,14 +6,16 @@
 </div>
 
 <br/>
-<div align="center" >React Native Module to getting users to easily rate your app. 
- 
+
+<div align="center"> React Native Module to getting users to easily rate your app.</div>
+
 <br/>
+
+<div align="center"> 
 
 [![npm version](https://img.shields.io/npm/v/react-native-store-rating.svg)](https://www.npmjs.com/package/react-responsive-modal)
 [![npm downloads per month](https://img.shields.io/npm/dm/react-native-store-rating.svg)](https://www.npmjs.com/package/react-responsive-modal)
 [![dependencies Status](https://david-dm.org/pankod/react-native-store-rating/status.svg)](https://david-dm.org/pradel/react-responsive-modal)
-
 
 <br/>
   <sub>Created by <a href="https://www.pankod.com">Pankod</a></sub>
@@ -28,11 +30,10 @@ Ratings and reviews influence how your app ranks in search results, and can affe
 
 
 ## Stores Supported:
-|                                                                 **Apple App Store**                                                                 |                                                              **Google Play**                                                              |                                                                              |
-| :--------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------
+| **Apple App Store** |  **Google Play** ||
+ ----------: |:-------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------
 |                                                         **✓**                                                         |                                                        **✓**                                                        |                                                                                                                       |
 | <img src="https://developer.apple.com/assets/elements/icons/app-store/app-store-128x128_2x.png" height="60" > |                      <img src="https://elegal.ph/site/wp-content/uploads/2017/08/google-play-icon-logo-favicon-1632434.svg_.jpg" height="60" float="right"> |
-|                                             |
 
 
 
