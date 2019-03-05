@@ -25,15 +25,15 @@ export class RateModal extends Component<IProps, IState> {
 		rateBtnText: 'Rate',
 		sendBtnText: 'Send',
 		commentOpenRating: 3,
-		ratingOnChange: (e: number) => { console.log(e); },
-		onClosed: () => console.log('pressed cancel button'),
-		sendContactUsForm: (state: object) => console.log(state),
+		reviews: ['Terrible', 'Bad', 'Okay', 'Good', 'Great'],
+		transparent: true,
 	};
 
 	constructor(props: IProps) {
 		super(props);
 
 		this.state = {
+			isModalOpen: props.isModalOpen,
 			rating: 5,
 			review: '',
 			reviewError: false,
@@ -42,88 +42,128 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	public render(): JSX.Element {
-		const { isModalOpen, onClosed } = this.props;
+		const { onClosed, transparent } = this.props;
+		const { isModalOpen } = this.state;
 		return (
-			<Modal visible={isModalOpen} onRequestClose={() => onClosed}>
+			<Modal transparent={transparent} visible={isModalOpen} onRequestClose={() => onClosed}>
 				{this.renderRateModal()}
 			</Modal>
 		);
 	}
 
+	public componentWillMount(): void {
+		const { OS } = Platform;
+		const { count, showRating, reviews, androidUrl, iosUrl } = this.props;
+		if (showRating && reviews.length !== count) {
+			throw new Error('You should 5 enter review values');
+		} else if (OS === 'android' && !androidUrl) {
+			throw new Error('Enter a valid store url');
+		} else if (OS === 'ios' && !iosUrl) {
+			throw new Error('Enter a valid store url');
+		}
+	}
+
 	private ratingOnChange(e: number): void {
 		const { ratingOnChange } = this.props;
-		ratingOnChange(e);
+		if (ratingOnChange) {
+			ratingOnChange(e);
+		}
 		this.setState({ rating: e });
 	}
 
 	private renderRateModal(): JSX.Element {
-		const { modalContainer, title, buttonContainer, button, buttonCancel, buttonCancelText, errorText } = RateModalStyles;
-		// tslint:disable-next-line: max-line-length
-		const { cancelBtnText, count, defaultRating, nonComment, placeHolderText, rateBtnText, sendBtnText, modalTitle } = this.props;
+		const {
+			modalContainer,
+			title, buttonContainer,
+			button,
+			buttonCancel,
+			buttonCancelText,
+			errorText,
+			modalWrapper,
+		} = RateModalStyles;
+
+		const { reviews,
+			showRating,
+			cancelBtnText,
+			count,
+			defaultRating,
+			nonComment,
+			placeHolderText,
+			rateBtnText,
+			sendBtnText,
+			modalTitle,
+			style } = this.props;
 		return (
-			<View style={modalContainer}>
-				{!this.state.showContactForm &&
-					<View>
-						<Text style={title}>{modalTitle}</Text>
-						<AirbnbRating
-							count={count}
-							defaultRating={defaultRating}
-							size={(width - 150) / 5}
-							showRating={false}
-							onFinishRating={(e: number) => this.ratingOnChange(e)}
-						/>
-
-						<View style={buttonContainer}>
-							<View style={{ flex: 1 }}></View>
-							<Button
-								text={cancelBtnText}
-								containerStyle={[button, buttonCancel]}
-								textStyle={buttonCancelText}
-								onPress={this.onClosed.bind(this)}
+			<View style={[modalWrapper, style]}>
+				<View style={modalContainer}>
+					{!this.state.showContactForm &&
+						<React.Fragment>
+							<Text style={title}>{modalTitle}</Text>
+							<AirbnbRating
+								count={count}
+								defaultRating={defaultRating}
+								size={(width - 150) / 5}
+								showRating={showRating}
+								reviews={reviews}
+								onFinishRating={(e: number) => this.ratingOnChange(e)}
 							/>
-							<Button
-								text={rateBtnText}
-								containerStyle={button}
-								onPress={this.sendRate.bind(this)}
-							/>
-						</View>
-					</View>
-				}
 
-				{this.state.showContactForm &&
-					<View>
-						<TextBox
-							containerStyle={[RateModalStyles.textBox]}
-							textStyle={{ paddingVertical: 5 }}
-							value={this.state.review}
-							placeholder={placeHolderText}
-							multiline
-							autoFocus
-							onChangeText={(value: string) => this.setState({ review: value, reviewError: false })}
-						/>
+							<View style={buttonContainer}>
+								<View style={{ flex: 1 }}></View>
+								<Button
+									text={cancelBtnText}
+									containerStyle={[button, buttonCancel]}
+									textStyle={buttonCancelText}
+									onPress={this.onClosed.bind(this)}
+								/>
+								<Button
+									text={rateBtnText}
+									containerStyle={button}
+									onPress={this.sendRate.bind(this)}
+								/>
+							</View>
+						</React.Fragment>
+					}
 
-						<View style={buttonContainer}>
-							{this.state.reviewError &&
-								<Text style={errorText}>
-									{nonComment}
-								</Text>
-							}
-							<View style={{ flex: 1 }}></View>
-							<Button
-								text={sendBtnText}
-								containerStyle={button}
-								onPress={this.sendContactUsForm.bind(this)}
+					{this.state.showContactForm &&
+						<React.Fragment>
+							<TextBox
+								containerStyle={[RateModalStyles.textBox]}
+								textStyle={{ paddingVertical: 5 }}
+								value={this.state.review}
+								placeholder={placeHolderText}
+								multiline
+								autoFocus
+								onChangeText={(value: string) => this.setState({ review: value, reviewError: false })}
 							/>
-						</View>
-					</View>
-				}
+
+							<View style={buttonContainer}>
+								{this.state.reviewError &&
+									<Text style={errorText}>
+										{nonComment}
+									</Text>
+								}
+								<View style={{ flex: 1 }}></View>
+								<Button
+									text={sendBtnText}
+									containerStyle={button}
+									onPress={this.sendContactUsForm.bind(this)}
+								/>
+							</View>
+						</React.Fragment>
+					}
+				</View>
 			</View>
 		);
 	}
 
 	private onClosed(): void {
 		const { onClosed } = this.props;
-		onClosed();
+		if (onClosed) {
+			onClosed();
+		} else {
+			this.setState({ isModalOpen: false });
+		}
 	}
 
 	private sendRate(): void {
@@ -138,8 +178,13 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	private sendContactUsForm(): void {
+		const { sendContactUsForm } = this.props;
 		if (this.state.review.length > 0) {
-			this.onClosed();
+			console.log(typeof sendContactUsForm)
+			if (sendContactUsForm && typeof sendContactUsForm === 'function') {
+				return sendContactUsForm({ ...this.state });
+			}
+			throw new Error('You should generate sendContactUsForm function');
 		} else {
 			this.setState({ reviewError: true });
 		}

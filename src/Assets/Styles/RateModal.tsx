@@ -3,6 +3,14 @@ import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { Color } from './Color';
 
 export let RateModalStyles = StyleSheet.create({
+
+	modalWrapper: {
+		backgroundColor: 'rgba(0,0,0,.5)',
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+	} as ViewStyle,
+
 	bigButton: {
 		width: 130,
 	} as ViewStyle,
@@ -46,6 +54,7 @@ export let RateModalStyles = StyleSheet.create({
 	modalContainer: {
 		backgroundColor: Color.White[500],
 		borderRadius: 10,
+		marginHorizontal: 20,
 	} as ViewStyle,
 
 	textBox: {

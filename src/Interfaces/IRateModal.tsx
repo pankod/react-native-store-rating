@@ -1,3 +1,5 @@
+import { ViewStyle } from 'react-native';
+
 export interface IProps {
 	modalTitle: string;
 	cancelBtnText: string;
@@ -15,10 +17,14 @@ export interface IProps {
 	sendContactUsForm: (state: IState) => void;
 	androidUrl?: string;
 	iosUrl?: string;
+	style: ViewStyle;
+	reviews: string[];
+	transparent: boolean;
 }
 export interface IState {
 	rating: number;
 	showContactForm: boolean;
 	review: string;
 	reviewError: boolean;
+	isModalOpen: boolean;
 }

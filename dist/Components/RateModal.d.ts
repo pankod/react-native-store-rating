@@ -13,13 +13,13 @@ export declare class RateModal extends Component<IProps, IState> {
         rateBtnText: string;
         sendBtnText: string;
         commentOpenRating: number;
-        ratingOnChange: (e: number) => void;
-        onClosed: () => void;
-        sendContactUsForm: (state: object) => void;
+        reviews: string[];
+        transparent: boolean;
     };
     constructor(props: IProps);
     render(): JSX.Element;
-    ratingOnChange(e: number): void;
+    componentWillMount(): void;
+    private ratingOnChange;
     private renderRateModal;
     private onClosed;
     private sendRate;

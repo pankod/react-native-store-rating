@@ -1,5 +1,6 @@
 import { TextStyle, ViewStyle } from 'react-native';
 export declare let RateModalStyles: {
+    modalWrapper: ViewStyle;
     bigButton: ViewStyle;
     button: ViewStyle;
     buttonCancel: {
