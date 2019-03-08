@@ -1,0 +1,60 @@
+{
+	"name": "react-native-store-rating",
+	"version": "1.0.0",
+	"description": "React Native store rating like Airbnb",
+	"scripts": {
+		"build": "rm -rf ./dist/** && tsc",
+		"travis-deploy-once": "travis-deploy-once",
+		"semantic-release": "semantic-release",
+		"watch": "tsc -- --watch",
+		"test": "jest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pankod/react-native-store-rating"
+	},
+	"bugs": {
+		"url": "https://github.com/pankod/react-native-store-rating/issues"
+	},
+	"homepage": "https://github.com/pankod/react-native-store-rating",
+	"files": [
+		"dist"
+	],
+	"types": "dist/index.d.ts",
+	"main": "dist/index.js",
+	"keywords": [
+		"react",
+		"react-native",
+		"store rating",
+		"modal",
+		"airbnb",
+		"review"
+	],
+	"author": "Pankod Inc.",
+	"contributors": [
+		{
+			"name": "selcuksarikoz",
+			"email": "selcuk@pankod.com"
+		}
+	],
+	"license": "MIT",
+	"dependencies": {
+		"lodash.times": "^4.3.2",
+		"react-native-ratings": "^4.1.0"
+	},
+	"devDependencies": {
+		"@types/react": "^16.8.6",
+		"@types/react-native": "^0.57.38",
+		"ts-jest": "^24.0.0",
+		"ts-lib": "0.0.5",
+		"tslint": "^5.13.0",
+		"tslint-config-prettier": "^1.18.0",
+		"tslint-react": "^3.6.0",
+		"typescript": "^3.3.3333"
+	},
+	"peerDependencies": {
+		"react": "*",
+		"react-native": "*",
+		"react-native-ratings": "^4.1.0"
+	}
+}
