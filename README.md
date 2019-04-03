@@ -12,8 +12,8 @@
 <div align="center"> 
 <br/>
 
-[![npm version](https://img.shields.io/npm/v/react-native-store-rating.svg)](https://www.npmjs.com/package/@pankod/react-native-store-rating)
-[![npm downloads per month](https://img.shields.io/npm/dm/react-native-store-rating.svg)](https://www.npmjs.com/package/@pankod/react-native-store-rating)
+[![npm version](https://img.shields.io/npm/v/@pankod/react-native-store-rating.svg)](https://www.npmjs.com/package/@pankod/react-native-store-rating)
+[![npm downloads per month](https://img.shields.io/npm/dm/@pankod/react-native-store-rating.svg)](https://www.npmjs.com/package/@pankod/react-native-store-rating)
 [![dependencies Status](https://david-dm.org/pankod/react-native-store-rating/status.svg)](https://david-dm.org/pankod/react-native-store-rating)
 
 
