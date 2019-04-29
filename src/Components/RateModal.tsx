@@ -63,6 +63,14 @@ export class RateModal extends Component<IProps, IState> {
 		}
 	}
 
+	public componentWillReceiveProps(nextProps): void {
+		if (this.props.isModalOpen && nextProps.isModalOpen) {
+			this.setState({
+				isModalOpen: nextProps.isModalOpen,
+			});
+		}
+	}
+
 	private onStarSelected(e: number): void {
 		const { onStarSelected } = this.props;
 		if (onStarSelected) {

@@ -43,6 +43,13 @@ class RateModal extends react_1.Component {
             throw new Error('Enter a valid store url');
         }
     }
+    componentWillReceiveProps(nextProps) {
+        if (this.props.isModalOpen && nextProps.isModalOpen) {
+            this.setState({
+                isModalOpen: nextProps.isModalOpen,
+            });
+        }
+    }
     onStarSelected(e) {
         const { onStarSelected } = this.props;
         if (onStarSelected) {
