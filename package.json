@@ -1,13 +1,12 @@
 {
 	"name": "react-native-store-rating",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "React Native store rating like Airbnb",
 	"scripts": {
 		"build": "rm -rf ./dist/** && tsc",
 		"travis-deploy-once": "travis-deploy-once",
 		"semantic-release": "semantic-release",
-		"watch": "tsc -- --watch",
-		"test": "jest"
+		"watch": "tsc -- --watch"
 	},
 	"repository": {
 		"type": "git",

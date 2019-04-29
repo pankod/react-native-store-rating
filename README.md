@@ -30,13 +30,10 @@ Ratings and reviews influence how your app ranks in search results, and can affe
 
 
 ## Stores Supported:
-|                                                                 **Apple App Store**                                                                 |                                                              **Google Play**                                                              |                                                                              |
-| :--------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------
-|                                                         **✓**                                                         |                                                        **✓**                                                        |                                                                                                                       |
-| <img src="https://developer.apple.com/assets/elements/icons/app-store/app-store-128x128_2x.png" height="60" > |                      <img src="https://elegal.ph/site/wp-content/uploads/2017/08/google-play-icon-logo-favicon-1632434.svg_.jpg" height="60" float="right"> |
-|                                             |
-
-
+| **Apple App Store**  |   **Google Play**  |  
+:--------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | 
+| **✓** | **✓** | 
+| <img src="https://developer.apple.com/assets/elements/icons/app-store/app-store-128x128_2x.png" height="60" > | <img src="https://elegal.ph/site/wp-content/uploads/2017/08/google-play-icon-logo-favicon-1632434.svg_.jpg" height="60" float="right"> | 
 
 
 
@@ -53,14 +50,14 @@ $ yarn add react-native-store-rating
 ```
 
 ## Usage
-Users are presented with a modal allowing them to choose amount of stars which is defined with `count` props.
+Users are presented with a modal allowing them to choose amount of stars which is defined with `totalStarCount` props.
 
-The star rate taken from the users is compared to the value defined in "commentOpenRating". If this value is greater than the value of "commentOpenRating", the user is directed to the App store or Google Play Store. If it is equal and smaller, comment popup will be opened and users will be allowed to type comment.
+The star rate taken from the users is compared to the value defined in "storeRedirectThreshold". If this value is greater than the value of "storeRedirectThreshold", the user is directed to the App store or Google Play Store. If it is equal and smaller, comment popup will be opened and users will be allowed to type comment.
 
-Example: Let's say we defined 3 as a value to `commentOpenRating` property,
+Example: Let's say we defined 3 as a value to `storeRedirectThreshold` property,
 ```javascript
 <RateModal
-	commentOpenRating={3}
+	storeRedirectThreshold={3}
 	// ... props
 />
 ```
@@ -81,20 +78,20 @@ export default class example extends Component {
             <RateModal
                 rateBtnText={'Rate'}
                 cancelBtnText={'Cancel'}
-                count={5}
-                defaultRating={5}
-                showRating={true}
+                totalStarCount={5}
+                defaultStars={5}
+                isVisible={true}
                 sendBtnText={'Send'}
-                placeHolderText={'Placeholder text'}
-                nonComment={'Non comment text'}
-                androidUrl={'market://details?id=${APP_PACKAGE_NAME}'}
+                commentPlaceholderText={'Placeholder text'}
+                emptyCommentErrorMessage={'Empty comment error message'}
+                playStoreUrl={'market://details?id=${APP_PACKAGE_NAME}'}
                 isModalOpen={true}
-                commentOpenRating={3}
+                storeRedirectThreshold={3}
                 style={{
                     backgroundColor: '#000',
                     paddingHorizontal: 30,
                 }}
-                ratingOnChange={(e: number) => {
+                onStarSelected={(e: number) => {
                     console.log('change rating', e);
                 }}
                 onClosed={() => {
@@ -123,26 +120,31 @@ export default class example extends Component {
 
 | Properties | Type | Description |Default |
 |------------|-------------------------------------|-------------|----------------------------------------------------------------|
-| **sendContactUsForm** <br> **required* | `Function`  | Read component state and function fired when send bottom click | `{ isModalOpen: true, rating: 3, review: "Lorem ipsum dolor sit amet...", reviewError:false, showContactForm:true }` | 
-| **androidUrl** <br> **required* | `string`  | Google Play Store App Url <br> `market://details?id=${APP_PACKAGE_NAME}` | | 
-| **iosUrl** <br> **required* | `string`  | Apple ITunes App Url <br> `itms-apps://itunes.apple.com/app/${APP_ID}`| | 
+| **playStoreUrl** <br> **required* | `string`  | Google Play Store App Url <br> `market://details?id=${APP_PACKAGE_NAME}` | | 
+| **iTunesStoreUrl** <br> **required* | `string`  | Apple ITunes App Url <br> `itms-apps://itunes.apple.com/app/${APP_ID}`| | 
 | **rateBtnText**   | `string` | The button text.    | `"Rate"`        | 
 | **cancelBtnText**  | `string`  | The cancel button text.  | `"Cancel"`  | 
-| **count**     | `number`     | The starts count on modal.   | `5` | 
+| **totalStarCount**     | `number`     | The starts count on modal.   | `5` | 
 | **defaulRating** | `number` | If no number set, it will determine 3 stars rating.               |  `5` | 
-| **showRating**      | `boolean` | Shows rating on modal. | ` true`   | 
+| **isVisible**      | `boolean` | Shows rating on modal. | ` true`   | 
 | **sendBtnText** | `string`  | The text of send button. | `"Send"` |  
-| **placeHolderText** | `string` | User review modal placeholder text. | `"You can write your comments here"` | 
-| **transparent** |`boolean` | Background style | `true` | 
-| **reviews** | `array` | The array of rating title. | `['Terrible', 'Bad', 'Okay', 'Good', 'Great']` | 
-| **nonComment** | `string`  | User review comment box validation text | `"Please specify your opinion."` | 
+| **commentPlaceholderText** | `string` | User review modal placeholder text. | `"You can write your comments here"` | 
+| **isTransparent** |`boolean` | Background style | `true` | 
+| **starLabels** | `array` | The array of rating title. | `['Terrible', 'Bad', 'Okay', 'Good', 'Great']` | 
+| **emptyCommentErrorMessage** | `string`  | User review comment box validation text | `"Please specify your opinion."` | 
 | **isModalOpen** | `boolean`  | Control if the modal open or not. | `false` | 
-| **commentOpenRating** | `number`  | ? | `3` | 
+| **storeRedirectThreshold** | `number`  | ? | `3` | 
 | **style** | `Object`  | An object containing the styles objects to style the modal. | `example:`<br>`{ backgroundColor: #000, paddingHorizontal: 30 }` | 
-| **ratingOnChange** | `Function`  | Function fired when the rating has changed.| `return: number` | 
-| **onClosed** | `Function`  | Function fired when the modal has closed.| `console.warn('pressed cancel button...')` | 
 
 <br/>
+
+## Functions
+<br/>
+| Properties | Type | Description |Default |
+|------------|-------------------------------------|-------------|----------------------------------------------------------------|
+| **onStarSelected** | `Function`  | Function fired when the rating has changed.| `return: number` | 
+| **onClosed** | `Function`  | Function fired when the modal has closed.| `console.warn('pressed cancel button...')` | 
+| **sendContactUsForm** <br> **required* | `Function`  | Read component state and function fired when send bottom click | `{ isModalOpen: true, rating: 3, review: "Lorem ipsum dolor sit amet...", reviewError:false, showContactForm:true }` | 
 <br/>
 
 
