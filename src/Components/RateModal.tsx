@@ -64,7 +64,7 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	public componentWillReceiveProps(nextProps): void {
-		if (this.props.isModalOpen !== this.state.isModalOpen) {
+		if (this.props.isModalOpen !== nextProps.isModalOpen) {
 			this.setState({
 				isModalOpen: nextProps.isModalOpen,
 			});

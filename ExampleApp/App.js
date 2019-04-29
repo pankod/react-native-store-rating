@@ -29,7 +29,6 @@ export class App extends Component {
 					isModalOpen={this.state.isModalOpen}
 					storeRedirectThreshold={3}
 					style={{
-						backgroundColor: '#000',
 						paddingHorizontal: 30,
 					}}
 					onStarSelected={(e) => {
@@ -42,13 +41,7 @@ export class App extends Component {
 						})
 					}}
 					sendContactUsForm={(state) => {
-						// state = {
-						// 	isModalOpen: true,
-						// 	rating: 3,
-						// 	review: "Lorem ipsum dolor sit amet...",
-						// 	reviewError:false,
-						// 	showContactForm:true
-						// }
+						alert(JSON.stringify(state));
 					}}
 				/>
 

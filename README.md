@@ -69,46 +69,63 @@ Comment modal will be opened if the given star rate equal or less then 3.
 
 ## Example
 ```javascript
-import React, { Component } from 'react';
-import RateModal from 'react-native-rating-modal';
+import React, { Component } from 'react'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+
+import RateModal from 'react-native-store-rating'
 
 export default class example extends Component {
-    render() {
-        return (
-            <RateModal
-                rateBtnText={'Rate'}
-                cancelBtnText={'Cancel'}
-                totalStarCount={5}
-                defaultStars={5}
-                isVisible={true}
-                sendBtnText={'Send'}
-                commentPlaceholderText={'Placeholder text'}
-                emptyCommentErrorMessage={'Empty comment error message'}
-                playStoreUrl={'market://details?id=${APP_PACKAGE_NAME}'}
-                isModalOpen={true}
-                storeRedirectThreshold={3}
-                style={{
-                    backgroundColor: '#000',
-                    paddingHorizontal: 30,
-                }}
-                onStarSelected={(e: number) => {
-                    console.log('change rating', e);
-                }}
-                onClosed={() => {
-                    console.log('pressed cancel button...')
-                }}
-                sendContactUsForm={(state: object) => {
-                    // state = {
-                    // 	isModalOpen: true,
-                    // 	rating: 3,
-                    // 	review: "Lorem ipsum dolor sit amet...",
-                    // 	reviewError:false,
-                    // 	showContactForm:true
-                    // }
-                }}
-            />
-        )
-    }
+	state = {
+		isModalOpen: false
+	}
+
+	const styles = StyleSheet.create({
+		container: {
+			flex: 1,
+			justifyContent: 'center',
+			alignItems: 'center'
+		}
+	})
+
+	render() {
+		return (
+			<View style={styles.container}>
+				<TouchableOpacity onPress={() => this.setState({ isModalOpen: true })}>
+				<Text> Open Modal </Text>
+			</TouchableOpacity>
+
+			<RateModal
+				rateBtnText={'Rate'}
+				cancelBtnText={'Cancel'}
+				totalStarCount={5}
+				defaultStars={5}
+				isVisible={true}
+				sendBtnText={'Send'}
+				commentPlaceholderText={'Placeholder text'}
+				emptyCommentErrorMessage={'Empty comment error message'}
+				iTunesStoreUrl={'market://details?id=${APP_PACKAGE_NAME}'}
+				isModalOpen={this.state.isModalOpen}
+				storeRedirectThreshold={3}
+				style={{
+					paddingHorizontal: 30,
+				}}
+				onStarSelected={(e) => {
+					console.log('change rating', e);
+				}}
+				onClosed={() => {
+					console.log('pressed cancel button...')
+						this.setState({
+						isModalOpen: false
+					})
+				}}
+				sendContactUsForm={(state) => {
+					alert(JSON.stringify(state));
+				}}
+			/>
+
+			</View >
+		)
+	}
 }
 
 ```
@@ -140,6 +157,7 @@ export default class example extends Component {
 
 ## Functions
 <br/>
+
 | Properties | Type | Description |Default |
 |------------|-------------------------------------|-------------|----------------------------------------------------------------|
 | **onStarSelected** | `Function`  | Function fired when the rating has changed.| `return: number` | 
@@ -154,5 +172,6 @@ As of version 1.0.0 this package is compatible with both iOS and Android.
 
 #### Releases
 - 1.0.0 - Initial release
+- 1.1.0 - Some props and functions name changed && added example app.
 
 

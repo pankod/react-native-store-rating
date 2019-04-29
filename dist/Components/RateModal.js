@@ -44,7 +44,7 @@ class RateModal extends react_1.Component {
         }
     }
     componentWillReceiveProps(nextProps) {
-        if (this.props.isModalOpen !== this.state.isModalOpen) {
+        if (this.props.isModalOpen !== nextProps.isModalOpen) {
             this.setState({
                 isModalOpen: nextProps.isModalOpen,
             });
