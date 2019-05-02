@@ -1,13 +1,12 @@
 {
-	"name": "@pankod/react-native-store-rating",
-	"version": "1.0.0",
+	"name": "react-native-store-rating",
+	"version": "1.1.0",
 	"description": "React Native store rating like Airbnb",
 	"scripts": {
 		"build": "rm -rf ./dist/** && tsc",
 		"travis-deploy-once": "travis-deploy-once",
 		"semantic-release": "semantic-release",
-		"watch": "tsc -- --watch",
-		"test": "jest"
+		"watch": "tsc -- --watch"
 	},
 	"repository": {
 		"type": "git",
@@ -43,14 +42,14 @@
 		"react-native-ratings": "^4.1.0"
 	},
 	"devDependencies": {
-		"@types/react": "^16.8.6",
-		"@types/react-native": "^0.57.38",
-		"ts-jest": "^24.0.0",
+		"@types/react": "^16.8.14",
+		"@types/react-native": "^0.57.49",
+		"ts-jest": "^24.0.2",
 		"ts-lib": "0.0.5",
-		"tslint": "^5.13.0",
+		"tslint": "^5.16.0",
 		"tslint-config-prettier": "^1.18.0",
 		"tslint-react": "^3.6.0",
-		"typescript": "^3.3.3333"
+		"typescript": "^3.4.5"
 	},
 	"peerDependencies": {
 		"react": "*",

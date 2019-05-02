@@ -16,17 +16,17 @@ export class RateModal extends Component<IProps, IState> {
 	public static defaultProps = {
 		modalTitle: 'How many stars do you give to this app?',
 		cancelBtnText: 'Cancel',
-		count: 5,
-		defaultRating: 5,
-		nonComment: 'Please specify your opinion.',
-		showRating: true,
+		totalStarCount: 5,
+		defaultStars: 5,
+		emptyCommentErrorMessage: 'Please specify your opinion.',
+		isVisible: true,
 		isModalOpen: false,
-		placeHolderText: 'You can type your comments here ...',
+		commentPlaceholderText: 'You can type your comments here ...',
 		rateBtnText: 'Rate',
 		sendBtnText: 'Send',
-		commentOpenRating: 3,
-		reviews: ['Terrible', 'Bad', 'Okay', 'Good', 'Great'],
-		transparent: true,
+		storeRedirectThreshold: 3,
+		starLabels: ['Terrible', 'Bad', 'Okay', 'Good', 'Great'],
+		isTransparent: true,
 	};
 
 	constructor(props: IProps) {
@@ -42,10 +42,10 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	public render(): JSX.Element {
-		const { onClosed, transparent } = this.props;
+		const { onClosed, isTransparent } = this.props;
 		const { isModalOpen } = this.state;
 		return (
-			<Modal transparent={transparent} visible={isModalOpen} onRequestClose={() => onClosed}>
+			<Modal transparent={isTransparent} visible={isModalOpen} onRequestClose={() => onClosed}>
 				{this.renderRateModal()}
 			</Modal>
 		);
@@ -53,20 +53,28 @@ export class RateModal extends Component<IProps, IState> {
 
 	public componentWillMount(): void {
 		const { OS } = Platform;
-		const { count, showRating, reviews, androidUrl, iosUrl } = this.props;
-		if (showRating && reviews.length !== count) {
+		const { totalStarCount, isVisible, starLabels, playStoreUrl, iTunesStoreUrl } = this.props;
+		if (isVisible && starLabels.length !== totalStarCount) {
 			throw new Error('You should define at least 5 review values');
-		} else if (OS === 'android' && !androidUrl) {
+		} else if (OS === 'android' && !playStoreUrl) {
 			throw new Error('Enter a valid store url');
-		} else if (OS === 'ios' && !iosUrl) {
+		} else if (OS === 'ios' && !iTunesStoreUrl) {
 			throw new Error('Enter a valid store url');
 		}
 	}
 
-	private ratingOnChange(e: number): void {
-		const { ratingOnChange } = this.props;
-		if (ratingOnChange) {
-			ratingOnChange(e);
+	public componentWillReceiveProps(nextProps): void {
+		if (this.props.isModalOpen !== nextProps.isModalOpen) {
+			this.setState({
+				isModalOpen: nextProps.isModalOpen,
+			});
+		}
+	}
+
+	private onStarSelected(e: number): void {
+		const { onStarSelected } = this.props;
+		if (onStarSelected) {
+			onStarSelected(e);
 		}
 		this.setState({ rating: e });
 	}
@@ -82,13 +90,13 @@ export class RateModal extends Component<IProps, IState> {
 			modalWrapper,
 		} = RateModalStyles;
 
-		const { reviews,
-			showRating,
+		const { starLabels,
+			isVisible,
 			cancelBtnText,
-			count,
-			defaultRating,
-			nonComment,
-			placeHolderText,
+			totalStarCount,
+			defaultStars,
+			emptyCommentErrorMessage,
+			commentPlaceholderText,
 			rateBtnText,
 			sendBtnText,
 			modalTitle,
@@ -100,12 +108,12 @@ export class RateModal extends Component<IProps, IState> {
 						<React.Fragment>
 							<Text style={title}>{modalTitle}</Text>
 							<AirbnbRating
-								count={count}
-								defaultRating={defaultRating}
+								count={totalStarCount}
+								defaultRating={defaultStars}
 								size={(width - 150) / 5}
-								showRating={showRating}
-								reviews={reviews}
-								onFinishRating={(e: number) => this.ratingOnChange(e)}
+								showRating={isVisible}
+								reviews={starLabels}
+								onFinishRating={(e: number) => this.onStarSelected(e)}
 							/>
 
 							<View style={buttonContainer}>
@@ -131,7 +139,7 @@ export class RateModal extends Component<IProps, IState> {
 								containerStyle={[RateModalStyles.textBox]}
 								textStyle={{ paddingVertical: 5 }}
 								value={this.state.review}
-								placeholder={placeHolderText}
+								placeholder={commentPlaceholderText}
 								multiline
 								autoFocus
 								onChangeText={(value: string) => this.setState({ review: value, reviewError: false })}
@@ -140,7 +148,7 @@ export class RateModal extends Component<IProps, IState> {
 							<View style={buttonContainer}>
 								{this.state.reviewError &&
 									<Text style={errorText}>
-										{nonComment}
+										{emptyCommentErrorMessage}
 									</Text>
 								}
 								<View style={{ flex: 1 }}></View>
@@ -167,11 +175,11 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	private sendRate(): void {
-		const { commentOpenRating, androidUrl, iosUrl } = this.props;
-		if (this.state.rating > commentOpenRating) {
+		const { storeRedirectThreshold, playStoreUrl, iTunesStoreUrl } = this.props;
+		if (this.state.rating > storeRedirectThreshold) {
 			Platform.OS === 'ios' ?
-				Linking.openURL(iosUrl) :
-				Linking.openURL(androidUrl);
+				Linking.openURL(iTunesStoreUrl) :
+				Linking.openURL(playStoreUrl);
 		} else {
 			this.setState({ showContactForm: true });
 		}

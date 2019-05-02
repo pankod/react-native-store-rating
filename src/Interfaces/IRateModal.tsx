@@ -3,23 +3,23 @@ import { ViewStyle } from 'react-native';
 export interface IProps {
 	modalTitle: string;
 	cancelBtnText: string;
-	count: number;
-	defaultRating: number;
-	nonComment: string;
-	showRating: boolean;
+	totalStarCount: number;
+	defaultStars: number;
+	emptyCommentErrorMessage: string;
+	isVisible: boolean;
 	isModalOpen: boolean;
-	placeHolderText: string;
+	commentPlaceholderText: string;
 	rateBtnText: string;
 	sendBtnText: string;
-	commentOpenRating: number;
-	ratingOnChange: (e: number) => void;
+	storeRedirectThreshold: number;
+	onStarSelected: (e: number) => void;
 	onClosed: () => void;
 	sendContactUsForm: (state: IState) => void;
-	androidUrl?: string;
-	iosUrl?: string;
+	playStoreUrl?: string;
+	iTunesStoreUrl?: string;
 	style: ViewStyle;
-	reviews: string[];
-	transparent: boolean;
+	starLabels: string[];
+	isTransparent: boolean;
 }
 export interface IState {
 	rating: number;
