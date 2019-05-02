@@ -168,7 +168,7 @@ export default class example extends Component {
 
 #### Notes
 
-As of version 1.0.0 this package is compatible with both iOS and Android.
+As of version 1.1.0 this package is compatible with both iOS and Android.
 
 #### Releases
 - 1.0.0 - Initial release
