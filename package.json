@@ -3,10 +3,12 @@
 	"version": "1.1.0",
 	"description": "React Native store rating like Airbnb",
 	"scripts": {
-		"build": "rm -rf ./dist/** && tsc",
+		"build": "rm -rf ./dist/** && tsc && npm run copy",
 		"travis-deploy-once": "travis-deploy-once",
 		"semantic-release": "semantic-release",
-		"watch": "tsc -- --watch"
+		"watch": "tsc -- --watch",
+		"copy": "rm -rf /Users/necati/Documents/react-native-store-rating/ExampleApp/node_modules/react-native-store-rating/dist** && cp -R /Users/necati/Documents/react-native-store-rating/dist /Users/necati/Documents/react-native-store-rating/ExampleApp/node_modules/react-native-store-rating"
+
 	},
 	"repository": {
 		"type": "git",
