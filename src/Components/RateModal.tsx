@@ -80,7 +80,7 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	private renderRateModal(): JSX.Element {
-		const { modalContainer, modalWrapper} = RateModalStyles;
+		const { modalContainer, modalWrapper } = RateModalStyles;
 		const { style } = this.props;
 
 		return (
@@ -94,21 +94,8 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	private renderRatingView(): JSX.Element {
-		const {
-			title, buttonContainer,
-			button,
-			buttonCancel,
-			buttonCancelText,
-		} = RateModalStyles;
-
-		const { starLabels,
-			isVisible,
-			cancelBtnText,
-			totalStarCount,
-			defaultStars,
-			rateBtnText,
-			modalTitle,
-		} = this.props;
+		const { title, buttonContainer, button, buttonCancel, buttonCancelText } = RateModalStyles;
+		const { starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, rateBtnText, modalTitle } = this.props;
 
 		return (
 			<React.Fragment>
@@ -141,17 +128,8 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	private renderContactFormView(): JSX.Element {
-		const {
-			buttonContainer,
-			button,
-			errorText,
-		} = RateModalStyles;
-
-		const {
-			emptyCommentErrorMessage,
-			commentPlaceholderText,
-			sendBtnText,
-		} = this.props;
+		const { buttonContainer, button, errorText } = RateModalStyles;
+		const { emptyCommentErrorMessage, commentPlaceholderText, sendBtnText } = this.props;
 
 		return (
 			<React.Fragment>
