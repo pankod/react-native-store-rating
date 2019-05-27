@@ -117,11 +117,7 @@ export class RateModal extends Component<IProps, IState> {
 						textStyle={buttonCancelText}
 						onPress={this.onClosed.bind(this)}
 					/>
-					<Button
-						text={rateBtnText}
-						containerStyle={button}
-						onPress={this.sendRate.bind(this)}
-					/>
+					<Button text={rateBtnText} containerStyle={button} onPress={this.sendRate.bind(this)} />
 				</View>
 			</React.Fragment>
 		);
@@ -150,11 +146,7 @@ export class RateModal extends Component<IProps, IState> {
 						</Text>
 					}
 					<View style={{ flex: 1 }}></View>
-					<Button
-						text={sendBtnText}
-						containerStyle={button}
-						onPress={this.sendContactUsForm.bind(this)}
-					/>
+					<Button text={sendBtnText} containerStyle={button} onPress={this.sendContactUsForm.bind(this)} />
 				</View>
 			</React.Fragment>
 		);
