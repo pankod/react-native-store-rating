@@ -66,8 +66,8 @@ class RateModal extends react_1.Component {
                 this.state.showContactForm && this.renderContactFormView())));
     }
     renderRatingView() {
-        const { title, buttonContainer, button, buttonCancel, buttonCancelText, } = RateModal_1.RateModalStyles;
-        const { starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, rateBtnText, modalTitle, } = this.props;
+        const { title, buttonContainer, button, buttonCancel, buttonCancelText } = RateModal_1.RateModalStyles;
+        const { starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, rateBtnText, modalTitle } = this.props;
         return (react_1.default.createElement(react_1.default.Fragment, null,
             react_1.default.createElement(react_native_1.Text, { style: title }, modalTitle),
             react_1.default.createElement(react_native_ratings_1.AirbnbRating, { count: totalStarCount, defaultRating: defaultStars, size: (width - 150) / 5, showRating: isVisible, reviews: starLabels, onFinishRating: (e) => this.onStarSelected(e) }),
@@ -77,8 +77,8 @@ class RateModal extends react_1.Component {
                 react_1.default.createElement(Button_1.Button, { text: rateBtnText, containerStyle: button, onPress: this.sendRate.bind(this) }))));
     }
     renderContactFormView() {
-        const { buttonContainer, button, errorText, } = RateModal_1.RateModalStyles;
-        const { emptyCommentErrorMessage, commentPlaceholderText, sendBtnText, } = this.props;
+        const { buttonContainer, button, errorText } = RateModal_1.RateModalStyles;
+        const { emptyCommentErrorMessage, commentPlaceholderText, sendBtnText } = this.props;
         return (react_1.default.createElement(react_1.default.Fragment, null,
             react_1.default.createElement(TextBox_1.TextBox, { containerStyle: [RateModal_1.RateModalStyles.textBox], textStyle: { paddingVertical: 5 }, value: this.state.review, placeholder: commentPlaceholderText, multiline: true, autoFocus: true, onChangeText: (value) => this.setState({ review: value, reviewError: false }) }),
             react_1.default.createElement(react_native_1.View, { style: buttonContainer },
