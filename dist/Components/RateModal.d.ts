@@ -22,6 +22,8 @@ export declare class RateModal extends Component<IProps, IState> {
     componentWillReceiveProps(nextProps: any): void;
     private onStarSelected;
     private renderRateModal;
+    private renderRatingView;
+    private renderContactFormView;
     private onClosed;
     private sendRate;
     private sendContactUsForm;

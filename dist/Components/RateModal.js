@@ -58,26 +58,34 @@ class RateModal extends react_1.Component {
         this.setState({ rating: e });
     }
     renderRateModal() {
-        const { modalContainer, title, buttonContainer, button, buttonCancel, buttonCancelText, errorText, modalWrapper, } = RateModal_1.RateModalStyles;
-        const { starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, emptyCommentErrorMessage, commentPlaceholderText, rateBtnText, sendBtnText, modalTitle, style } = this.props;
+        const { modalContainer, modalWrapper } = RateModal_1.RateModalStyles;
+        const { style } = this.props;
         return (react_1.default.createElement(react_native_1.View, { style: [modalWrapper, style] },
             react_1.default.createElement(react_native_1.View, { style: modalContainer },
-                !this.state.showContactForm &&
-                    react_1.default.createElement(react_1.default.Fragment, null,
-                        react_1.default.createElement(react_native_1.Text, { style: title }, modalTitle),
-                        react_1.default.createElement(react_native_ratings_1.AirbnbRating, { count: totalStarCount, defaultRating: defaultStars, size: (width - 150) / 5, showRating: isVisible, reviews: starLabels, onFinishRating: (e) => this.onStarSelected(e) }),
-                        react_1.default.createElement(react_native_1.View, { style: buttonContainer },
-                            react_1.default.createElement(react_native_1.View, { style: { flex: 1 } }),
-                            react_1.default.createElement(Button_1.Button, { text: cancelBtnText, containerStyle: [button, buttonCancel], textStyle: buttonCancelText, onPress: this.onClosed.bind(this) }),
-                            react_1.default.createElement(Button_1.Button, { text: rateBtnText, containerStyle: button, onPress: this.sendRate.bind(this) }))),
-                this.state.showContactForm &&
-                    react_1.default.createElement(react_1.default.Fragment, null,
-                        react_1.default.createElement(TextBox_1.TextBox, { containerStyle: [RateModal_1.RateModalStyles.textBox], textStyle: { paddingVertical: 5 }, value: this.state.review, placeholder: commentPlaceholderText, multiline: true, autoFocus: true, onChangeText: (value) => this.setState({ review: value, reviewError: false }) }),
-                        react_1.default.createElement(react_native_1.View, { style: buttonContainer },
-                            this.state.reviewError &&
-                                react_1.default.createElement(react_native_1.Text, { style: errorText }, emptyCommentErrorMessage),
-                            react_1.default.createElement(react_native_1.View, { style: { flex: 1 } }),
-                            react_1.default.createElement(Button_1.Button, { text: sendBtnText, containerStyle: button, onPress: this.sendContactUsForm.bind(this) }))))));
+                !this.state.showContactForm && this.renderRatingView(),
+                this.state.showContactForm && this.renderContactFormView())));
+    }
+    renderRatingView() {
+        const { title, buttonContainer, button, buttonCancel, buttonCancelText, } = RateModal_1.RateModalStyles;
+        const { starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, rateBtnText, modalTitle, } = this.props;
+        return (react_1.default.createElement(react_1.default.Fragment, null,
+            react_1.default.createElement(react_native_1.Text, { style: title }, modalTitle),
+            react_1.default.createElement(react_native_ratings_1.AirbnbRating, { count: totalStarCount, defaultRating: defaultStars, size: (width - 150) / 5, showRating: isVisible, reviews: starLabels, onFinishRating: (e) => this.onStarSelected(e) }),
+            react_1.default.createElement(react_native_1.View, { style: buttonContainer },
+                react_1.default.createElement(react_native_1.View, { style: { flex: 1 } }),
+                react_1.default.createElement(Button_1.Button, { text: cancelBtnText, containerStyle: [button, buttonCancel], textStyle: buttonCancelText, onPress: this.onClosed.bind(this) }),
+                react_1.default.createElement(Button_1.Button, { text: rateBtnText, containerStyle: button, onPress: this.sendRate.bind(this) }))));
+    }
+    renderContactFormView() {
+        const { buttonContainer, button, errorText, } = RateModal_1.RateModalStyles;
+        const { emptyCommentErrorMessage, commentPlaceholderText, sendBtnText, } = this.props;
+        return (react_1.default.createElement(react_1.default.Fragment, null,
+            react_1.default.createElement(TextBox_1.TextBox, { containerStyle: [RateModal_1.RateModalStyles.textBox], textStyle: { paddingVertical: 5 }, value: this.state.review, placeholder: commentPlaceholderText, multiline: true, autoFocus: true, onChangeText: (value) => this.setState({ review: value, reviewError: false }) }),
+            react_1.default.createElement(react_native_1.View, { style: buttonContainer },
+                this.state.reviewError &&
+                    react_1.default.createElement(react_native_1.Text, { style: errorText }, emptyCommentErrorMessage),
+                react_1.default.createElement(react_native_1.View, { style: { flex: 1 } }),
+                react_1.default.createElement(Button_1.Button, { text: sendBtnText, containerStyle: button, onPress: this.sendContactUsForm.bind(this) }))));
     }
     onClosed() {
         const { onClosed } = this.props;

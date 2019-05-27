@@ -80,88 +80,75 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	private renderRateModal(): JSX.Element {
-		const {
-			modalContainer,
-			title, buttonContainer,
-			button,
-			buttonCancel,
-			buttonCancelText,
-			errorText,
-			modalWrapper,
-		} = RateModalStyles;
+		const { modalContainer, modalWrapper } = RateModalStyles;
+		const { style } = this.props;
 
-		const { starLabels,
-			isVisible,
-			cancelBtnText,
-			totalStarCount,
-			defaultStars,
-			emptyCommentErrorMessage,
-			commentPlaceholderText,
-			rateBtnText,
-			sendBtnText,
-			modalTitle,
-			style } = this.props;
 		return (
 			<View style={[modalWrapper, style]}>
 				<View style={modalContainer}>
-					{!this.state.showContactForm &&
-						<React.Fragment>
-							<Text style={title}>{modalTitle}</Text>
-							<AirbnbRating
-								count={totalStarCount}
-								defaultRating={defaultStars}
-								size={(width - 150) / 5}
-								showRating={isVisible}
-								reviews={starLabels}
-								onFinishRating={(e: number) => this.onStarSelected(e)}
-							/>
-
-							<View style={buttonContainer}>
-								<View style={{ flex: 1 }}></View>
-								<Button
-									text={cancelBtnText}
-									containerStyle={[button, buttonCancel]}
-									textStyle={buttonCancelText}
-									onPress={this.onClosed.bind(this)}
-								/>
-								<Button
-									text={rateBtnText}
-									containerStyle={button}
-									onPress={this.sendRate.bind(this)}
-								/>
-							</View>
-						</React.Fragment>
-					}
-
-					{this.state.showContactForm &&
-						<React.Fragment>
-							<TextBox
-								containerStyle={[RateModalStyles.textBox]}
-								textStyle={{ paddingVertical: 5 }}
-								value={this.state.review}
-								placeholder={commentPlaceholderText}
-								multiline
-								autoFocus
-								onChangeText={(value: string) => this.setState({ review: value, reviewError: false })}
-							/>
-
-							<View style={buttonContainer}>
-								{this.state.reviewError &&
-									<Text style={errorText}>
-										{emptyCommentErrorMessage}
-									</Text>
-								}
-								<View style={{ flex: 1 }}></View>
-								<Button
-									text={sendBtnText}
-									containerStyle={button}
-									onPress={this.sendContactUsForm.bind(this)}
-								/>
-							</View>
-						</React.Fragment>
-					}
+					{!this.state.showContactForm && this.renderRatingView()}
+					{this.state.showContactForm && this.renderContactFormView()}
 				</View>
 			</View>
+		);
+	}
+
+	private renderRatingView(): JSX.Element {
+		const { title, buttonContainer, button, buttonCancel, buttonCancelText } = RateModalStyles;
+		const { starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, rateBtnText, modalTitle } = this.props;
+
+		return (
+			<React.Fragment>
+				<Text style={title}>{modalTitle}</Text>
+				<AirbnbRating
+					count={totalStarCount}
+					defaultRating={defaultStars}
+					size={(width - 150) / 5}
+					showRating={isVisible}
+					reviews={starLabels}
+					onFinishRating={(e: number) => this.onStarSelected(e)}
+				/>
+
+				<View style={buttonContainer}>
+					<View style={{ flex: 1 }}></View>
+					<Button
+						text={cancelBtnText}
+						containerStyle={[button, buttonCancel]}
+						textStyle={buttonCancelText}
+						onPress={this.onClosed.bind(this)}
+					/>
+					<Button text={rateBtnText} containerStyle={button} onPress={this.sendRate.bind(this)} />
+				</View>
+			</React.Fragment>
+		);
+	}
+
+	private renderContactFormView(): JSX.Element {
+		const { buttonContainer, button, errorText } = RateModalStyles;
+		const { emptyCommentErrorMessage, commentPlaceholderText, sendBtnText } = this.props;
+
+		return (
+			<React.Fragment>
+				<TextBox
+					containerStyle={[RateModalStyles.textBox]}
+					textStyle={{ paddingVertical: 5 }}
+					value={this.state.review}
+					placeholder={commentPlaceholderText}
+					multiline
+					autoFocus
+					onChangeText={(value: string) => this.setState({ review: value, reviewError: false })}
+				/>
+
+				<View style={buttonContainer}>
+					{this.state.reviewError &&
+						<Text style={errorText}>
+							{emptyCommentErrorMessage}
+						</Text>
+					}
+					<View style={{ flex: 1 }}></View>
+					<Button text={sendBtnText} containerStyle={button} onPress={this.sendContactUsForm.bind(this)} />
+				</View>
+			</React.Fragment>
 		);
 	}
 
