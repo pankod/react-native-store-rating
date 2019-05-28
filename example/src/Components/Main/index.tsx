@@ -17,11 +17,11 @@ export default class Main extends React.Component<{}, { intro: boolean, isModalO
 	public componentDidMount(): void {
 		setTimeout(() => {
 			this.setState({ intro: false });
-		}, 2000);
+		},         2000);
 	}
 
 	public render(): JSX.Element {
-		const { intro } = this.state;
+		const { intro, isModalOpen } = this.state;
 
 		if (intro) {
 			return (
@@ -30,7 +30,6 @@ export default class Main extends React.Component<{}, { intro: boolean, isModalO
 		}
 
 		return (
-
 			<RateModal
 				rateBtnText={'Rate'}
 				cancelBtnText={'Cancel'}
@@ -41,23 +40,18 @@ export default class Main extends React.Component<{}, { intro: boolean, isModalO
 				commentPlaceholderText={'Placeholder text'}
 				emptyCommentErrorMessage={'Empty comment error message'}
 				iTunesStoreUrl={'market://details?id=${APP_PACKAGE_NAME}'}
-				isModalOpen={this.state.isModalOpen}
+				isModalOpen={isModalOpen}
+				onStarSelected={e => { console.log('change rating', e); }}
 				storeRedirectThreshold={3}
 				style={{
-					paddingHorizontal: 30,
-				}}
-				onStarSelected={(e) => {
-					console.log('change rating', e);
+					paddingHorizontal: 30
 				}}
 				onClosed={() => {
-					console.log('pressed cancel button...')
 					this.setState({
 						isModalOpen: false
 					})
 				}}
-				sendContactUsForm={(state) => {
-					Alert.alert(JSON.stringify(state));
-				}}
+				sendContactUsForm={state => { Alert.alert(JSON.stringify(state)) }}
 			/>
 		);
 	}
