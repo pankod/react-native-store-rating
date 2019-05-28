@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1557919515199" clover="3.2.0">
+  <project timestamp="1557919515200" name="All files">
+    <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4" elements="14" coveredelements="14" complexity="0" loc="8" ncloc="8" packages="1" files="1" classes="1"/>
+    <file name="index.tsx" path="/Users/pankod/Documents/projects/expo-boilerplate/src/Components/Main/index.tsx">
+      <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
+      <line num="8" count="4" type="stmt"/>
+      <line num="10" count="4" type="stmt"/>
+      <line num="16" count="4" type="stmt"/>
+      <line num="17" count="4" type="stmt"/>
+      <line num="22" count="8" type="stmt"/>
+      <line num="24" count="8" type="cond" truecount="2" falsecount="0"/>
+      <line num="25" count="4" type="stmt"/>
+      <line num="30" count="4" type="stmt"/>
+    </file>
+  </project>
+</coverage>
