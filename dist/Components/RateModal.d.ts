@@ -24,6 +24,7 @@ export declare class RateModal extends Component<IProps, IState> {
     private renderRateModal;
     private renderRatingView;
     private renderContactFormView;
+    private renderReviewError;
     private onClosed;
     private sendRate;
     private sendContactUsForm;

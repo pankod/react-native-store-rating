@@ -76,15 +76,19 @@ class RateModal extends react_1.Component {
                 react_1.default.createElement(Button_1.Button, { text: rateBtnText, containerStyle: button, onPress: this.sendRate.bind(this) }))));
     }
     renderContactFormView() {
-        const { buttonContainer, button, errorText } = RateModal_1.RateModalStyles;
-        const { emptyCommentErrorMessage, commentPlaceholderText, sendBtnText } = this.props;
+        const { buttonContainer, button } = RateModal_1.RateModalStyles;
+        const { commentPlaceholderText, sendBtnText } = this.props;
         return (react_1.default.createElement(react_1.default.Fragment, null,
             react_1.default.createElement(TextBox_1.TextBox, { containerStyle: [RateModal_1.RateModalStyles.textBox], textStyle: { paddingVertical: 5 }, value: this.state.review, placeholder: commentPlaceholderText, multiline: true, autoFocus: true, onChangeText: (value) => this.setState({ review: value, reviewError: false }) }),
-            react_1.default.createElement(react_native_1.View, null, this.state.reviewError &&
-                react_1.default.createElement(react_native_1.Text, { style: errorText }, emptyCommentErrorMessage)),
+            react_1.default.createElement(react_native_1.View, null, this.state.reviewError && this.renderReviewError()),
             react_1.default.createElement(react_native_1.View, { style: buttonContainer },
                 react_1.default.createElement(react_native_1.View, { style: { flex: 1 } }),
                 react_1.default.createElement(Button_1.Button, { text: sendBtnText, containerStyle: button, onPress: this.sendContactUsForm.bind(this) }))));
+    }
+    renderReviewError() {
+        const { errorText } = RateModal_1.RateModalStyles;
+        const { emptyCommentErrorMessage } = this.props;
+        return (react_1.default.createElement(react_native_1.Text, { style: errorText }, emptyCommentErrorMessage));
     }
     onClosed() {
         const { onClosed } = this.props;
