@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {
 	TextInput,
 	View,
+	TextStyle,
+	StyleProp,
 } from 'react-native';
 
 import { TextBoxStyles } from '../Assets/Styles/TextBox';
@@ -9,7 +11,6 @@ import { TextBoxStyles } from '../Assets/Styles/TextBox';
 import { IProps, IState } from '../Interfaces/ITextBox';
 
 export class TextBox extends Component<IProps, IState> {
-	private TextInputRef: TextInput;
 
 	constructor(props: IProps) {
 		super(props);
@@ -28,8 +29,14 @@ export class TextBox extends Component<IProps, IState> {
 				this.props.containerStyle,
 				this.props.multiline ? { height: 80 } : {},
 			]}>
-				<TextInput
-					ref={(input) => this.TextInputRef = input}
+				{this.renderTextInput()}
+			</View>
+		);
+	}
+
+	private renderTextInput(): JSX.Element {
+		return (
+			<TextInput
 					accessibilityLabel={this.props.accessibilityLabel}
 					autoCapitalize={this.props.autoCapitalize}
 					autoFocus={this.props.autoFocus}
@@ -38,12 +45,7 @@ export class TextBox extends Component<IProps, IState> {
 					value={this.props.value}
 					secureTextEntry={this.props.secureTextEntry}
 					keyboardType={this.props.keyboardType}
-					style={[
-						TextBoxStyles.textStyle,
-						this.props.textStyle,
-						this.props.disabled ? TextBoxStyles.disabledStyle : {},
-						this.props.multiline ? { height: 80 } : {},
-					]}
+					style={this.renderStyle()}
 					underlineColorAndroid={'transparent'}
 					onChangeText={this.onChange.bind(this)}
 					onChange={this.props.onChange}
@@ -57,12 +59,18 @@ export class TextBox extends Component<IProps, IState> {
 					onSubmitEditing={this.props.onSubmitEditing}
 					returnKeyType={this.props.returnKeyType}
 				/>
-			</View>
 		);
 	}
 
-	public focus(): void {
-		this.TextInputRef.focus();
+	private renderStyle(): StyleProp<TextStyle> {
+		return (
+			[
+				TextBoxStyles.textStyle,
+				this.props.textStyle,
+				this.props.disabled ? TextBoxStyles.disabledStyle : {},
+				this.props.multiline ? { height: 80 } : {},
+			]
+		);
 	}
 
 	private onChange(text: string): void {

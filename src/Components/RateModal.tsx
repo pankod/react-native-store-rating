@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Dimensions, Linking, Modal, Platform, Text, View } from 'react-native';
+import { Linking, Modal, Platform, Text, View } from 'react-native';
 import { AirbnbRating } from 'react-native-ratings';
 
 import { RateModalStyles } from '../Assets/Styles/RateModal';
@@ -8,8 +8,6 @@ import { Button } from './Button';
 import { TextBox } from './TextBox';
 
 import { IProps, IState } from '../Interfaces/IRateModal';
-
-const { width } = Dimensions.get('window');
 
 export class RateModal extends Component<IProps, IState> {
 
@@ -103,7 +101,6 @@ export class RateModal extends Component<IProps, IState> {
 				<AirbnbRating
 					count={totalStarCount}
 					defaultRating={defaultStars}
-					size={(width - 150) / 5}
 					showRating={isVisible}
 					reviews={starLabels}
 					onFinishRating={(e: number) => this.onStarSelected(e)}
@@ -124,8 +121,8 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	private renderContactFormView(): JSX.Element {
-		const { buttonContainer, button, errorText } = RateModalStyles;
-		const { emptyCommentErrorMessage, commentPlaceholderText, sendBtnText } = this.props;
+		const { buttonContainer, button } = RateModalStyles;
+		const { commentPlaceholderText, sendBtnText } = this.props;
 
 		return (
 			<React.Fragment>
@@ -138,17 +135,25 @@ export class RateModal extends Component<IProps, IState> {
 					autoFocus
 					onChangeText={(value: string) => this.setState({ review: value, reviewError: false })}
 				/>
-
+				<View>
+					{this.state.reviewError &&	this.renderReviewError()}
+				</View>
 				<View style={buttonContainer}>
-					{this.state.reviewError &&
-						<Text style={errorText}>
-							{emptyCommentErrorMessage}
-						</Text>
-					}
 					<View style={{ flex: 1 }}></View>
 					<Button text={sendBtnText} containerStyle={button} onPress={this.sendContactUsForm.bind(this)} />
 				</View>
 			</React.Fragment>
+		);
+	}
+
+	private renderReviewError(): JSX.Element {
+		const { errorText } = RateModalStyles;
+		const { emptyCommentErrorMessage } = this.props;
+
+		return (
+			<Text style={errorText}>
+				{emptyCommentErrorMessage}
+			</Text>
 		);
 	}
 
