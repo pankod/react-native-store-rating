@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Dimensions, Linking, Modal, Platform, Text, View } from 'react-native';
+import { Linking, Modal, Platform, Text, View } from 'react-native';
 import { AirbnbRating } from 'react-native-ratings';
 
 import { RateModalStyles } from '../Assets/Styles/RateModal';
@@ -8,8 +8,6 @@ import { Button } from './Button';
 import { TextBox } from './TextBox';
 
 import { IProps, IState } from '../Interfaces/IRateModal';
-
-const { width } = Dimensions.get('window');
 
 export class RateModal extends Component<IProps, IState> {
 
@@ -103,7 +101,6 @@ export class RateModal extends Component<IProps, IState> {
 				<AirbnbRating
 					count={totalStarCount}
 					defaultRating={defaultStars}
-					size={(width - 150) / 5}
 					showRating={isVisible}
 					reviews={starLabels}
 					onFinishRating={(e: number) => this.onStarSelected(e)}
@@ -138,13 +135,16 @@ export class RateModal extends Component<IProps, IState> {
 					autoFocus
 					onChangeText={(value: string) => this.setState({ review: value, reviewError: false })}
 				/>
-
-				<View style={buttonContainer}>
-					{this.state.reviewError &&
+				<View>
+				{this.state.reviewError &&
 						<Text style={errorText}>
 							{emptyCommentErrorMessage}
 						</Text>
 					}
+				</View>
+
+				<View style={buttonContainer}>
+
 					<View style={{ flex: 1 }}></View>
 					<Button text={sendBtnText} containerStyle={button} onPress={this.sendContactUsForm.bind(this)} />
 				</View>

@@ -40,6 +40,7 @@ exports.RateModalStyles = react_native_1.StyleSheet.create({
         fontWeight: '500',
     },
     errorText: {
+        paddingLeft: 20,
         color: Color_1.Color.Red[500],
     },
     modalContainer: {

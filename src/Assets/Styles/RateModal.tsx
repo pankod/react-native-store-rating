@@ -48,6 +48,7 @@ export let RateModalStyles = StyleSheet.create({
 	} as TextStyle,
 
 	errorText: {
+		paddingLeft: 20,
 		color: Color.Red[500],
 	} as TextStyle,
 
