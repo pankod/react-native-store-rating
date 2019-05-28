@@ -1,14 +1,13 @@
 
 <div align="center">
- <img src="./screenshots/shoot_1.png" width="250">
+ <img src="./rating.gif" width="250">
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <img src="./screenshots/shoot_2.png" width="250">
 </div>
 
 <br/>
 <div align="center"> <h3>React Native Store Rating<h3></div>
 
-<div align="center"> React Native Module to getting users to easily rate your app.</div>
+<div align="center"> React Native Module to getting users to easily rate and leave a review about your app.</div>
 <div align="center"> 
 
 
