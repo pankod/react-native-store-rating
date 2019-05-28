@@ -29,11 +29,15 @@
 		"airbnb",
 		"review"
 	],
-	"author": "Pankod Inc.",
+	"author": "Pankod",
 	"contributors": [
 		{
 			"name": "selcuksarikoz",
 			"email": "selcuk@pankod.com"
+		},
+		{
+			"name": "necatiozmen",
+			"email": "necati.ozmen.9@gmail.com"
 		}
 	],
 	"license": "MIT",
