@@ -1,23 +1,25 @@
 
 <div align="center">
- <img src="./screenshots/shoot_1.png" width="250">
+ <img src="./rating.gif" width="250">
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <img src="./screenshots/shoot_2.png" width="250">
 </div>
 
 <br/>
 <div align="center"> <h3>React Native Store Rating<h3></div>
 
-<div align="center"> React Native Module to getting users to easily rate your app.</div>
+<div align="center"> React Native Module to getting users to easily rate and leave a review about your app.</div>
 <div align="center"> 
-<br/>
 
+
+
+<a href="https://codeclimate.com/github/pankod/react-native-store-rating/maintainability"><img src="https://api.codeclimate.com/v1/badges/99434a23bd16038a55e0/maintainability" /></a>
 [![npm version](https://img.shields.io/npm/v/@pankod/react-native-store-rating.svg)](https://www.npmjs.com/package/@pankod/react-native-store-rating)
-[![npm downloads per month](https://img.shields.io/npm/dm/react-native-store-rating.svg)](https://www.npmjs.com/package/@pankod/react-native-store-rating)
 [![dependencies Status](https://david-dm.org/pankod/react-native-store-rating/status.svg)](https://david-dm.org/pankod/react-native-store-rating)
 [![dev-dependencies Status](https://david-dm.org/pankod/react-native-store-rating/dev-status.svg)](https://david-dm.org/pankod/react-native-store-rating?type=dev)
 
-<br/>
+
+</div>
+<div align="center">
   <sub>Created by <a href="https://www.pankod.com">Pankod</a></sub>
 </div>
 <br/>
@@ -67,11 +69,19 @@ User redirect to App Store or Google Play Store when the given star rate is grea
 Comment modal will be opened if the given star rate equal or less then 3.
 
 
+## Live Demo with Expo
+
+<div align="center">
+
+[![Explore with Expo Snack](/expo_preview.png)](https://snack.expo.io/@pankod/github.com-pankod-react-native-store-rating:example)
+
+</div>
+
+
 ## Example
-```javascript
+``` javascript
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
-
 import RateModal from 'react-native-store-rating'
 
 export default class example extends Component {
@@ -127,7 +137,6 @@ export default class example extends Component {
 		)
 	}
 }
-
 ```
 
 <br/>
