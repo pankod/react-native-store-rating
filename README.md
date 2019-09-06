@@ -105,6 +105,7 @@ export default class example extends Component {
 			</TouchableOpacity>
 
 			<RateModal
+			    	modalTitle="Your modal title"
 				rateBtnText={'Rate'}
 				cancelBtnText={'Cancel'}
 				totalStarCount={5}
@@ -148,7 +149,8 @@ export default class example extends Component {
 |------------|-------------------------------------|-------------|----------------------------------------------------------------|
 | **playStoreUrl** <br> **required* | `string`  | Google Play Store App Url <br> `market://details?id=${APP_PACKAGE_NAME}` | | 
 | **iTunesStoreUrl** <br> **required* | `string`  | Apple ITunes App Url <br> `itms-apps://itunes.apple.com/app/${APP_ID}`| | 
-| **rateBtnText**   | `string` | The button text.    | `"Rate"`        | 
+| **modalTitle**   | `string` | The modal header title    | `"How many stars do you give to this app?"`        | 
+| **rateBtnText**   | `string` | The button text.    | `"Rate"`        |
 | **cancelBtnText**  | `string`  | The cancel button text.  | `"Cancel"`  | 
 | **totalStarCount**     | `number`     | The starts count on modal.   | `5` | 
 | **defaulRating** | `number` | If no number set, it will determine 3 stars rating.               |  `5` | 
