@@ -172,6 +172,7 @@ export class RateModal extends Component<IProps, IState> {
 			Platform.OS === 'ios' ?
 				Linking.openURL(iTunesStoreUrl) :
 				Linking.openURL(playStoreUrl);
+			this.setState({ isModalOpen: false });
 		} else {
 			this.setState({ showContactForm: true });
 		}
@@ -181,7 +182,13 @@ export class RateModal extends Component<IProps, IState> {
 		const { sendContactUsForm } = this.props;
 		if (this.state.review.length > 0) {
 			if (sendContactUsForm && typeof sendContactUsForm === 'function') {
-				return sendContactUsForm({ ...this.state });
+				this.setState({ showContactForm: false });
+                let copyState = this.state;
+                this.setState({
+                    review: '',
+                    reviewError: false
+                });
+                return sendContactUsForm({ ...copyState });
 			}
 			throw new Error('You should generate sendContactUsForm function');
 		} else {
