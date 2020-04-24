@@ -126,13 +126,13 @@ export class RateModal extends Component<IProps, IState> {
 
 	private renderContactFormView(): JSX.Element {
 		const { buttonContainer, button } = RateModalStyles;
-		const { commentPlaceholderText, sendBtnText, rateButtonTextStyle, rateButtonContainerStyle, placeholderTextColor } = this.props;
+		const { commentPlaceholderText, sendBtnText, rateButtonTextStyle, rateButtonContainerStyle, placeholderTextColor, textBoxStyle } = this.props;
 
 		return (
 			<React.Fragment>
 				<TextBox
 					containerStyle={[RateModalStyles.textBox]}
-					textStyle={{ paddingVertical: 5 }}
+					textStyle={[{ paddingVertical: 5 }, textBoxStyle]}
 					value={this.state.review}
 					placeholder={commentPlaceholderText}
 					multiline

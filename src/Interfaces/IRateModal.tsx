@@ -31,6 +31,7 @@ export interface IProps {
 	placeholderTextColor?: string;
 	selectedColor?: string;
 	reviewColor?: string;
+	textBoxStyle?: TextStyle;
 }
 export interface IState {
 	rating: number;
