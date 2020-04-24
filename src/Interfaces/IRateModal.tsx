@@ -14,6 +14,7 @@ export interface IProps {
 	storeRedirectThreshold: number;
 	onStarSelected: (e: number) => void;
 	onClosed: () => void;
+	onRated: () => void;
 	sendContactUsForm: (state: IState) => void;
 	playStoreUrl?: string;
 	iTunesStoreUrl?: string;

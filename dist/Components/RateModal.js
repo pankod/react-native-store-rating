@@ -103,11 +103,16 @@ class RateModal extends react_1.Component {
         }
     }
     sendRate() {
-        const { storeRedirectThreshold, playStoreUrl, iTunesStoreUrl } = this.props;
+        const { storeRedirectThreshold, playStoreUrl, iTunesStoreUrl, onRated } = this.props;
         if (this.state.rating > storeRedirectThreshold) {
-            react_native_1.Platform.OS === 'ios' ?
-                react_native_1.Linking.openURL(iTunesStoreUrl) :
-                react_native_1.Linking.openURL(playStoreUrl);
+            if (onRated) {
+                onRated();
+            }
+            else {
+                react_native_1.Platform.OS === 'ios' ?
+                    react_native_1.Linking.openURL(iTunesStoreUrl) :
+                    react_native_1.Linking.openURL(playStoreUrl);
+            }
         }
         else {
             this.setState({ showContactForm: true });
