@@ -16,6 +16,7 @@ export interface IProps {
 	label?: string;
 	value?: string;
 	placeholder?: string;
+	placeholderTextColor?: string;
 	returnKeyType?: ReturnKeyType;
 	secureTextEntry?: boolean;
 	keyboardType?: KeyboardType | KeyboardTypeIOS;

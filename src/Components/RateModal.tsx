@@ -79,11 +79,11 @@ export class RateModal extends Component<IProps, IState> {
 
 	private renderRateModal(): JSX.Element {
 		const { modalContainer, modalWrapper } = RateModalStyles;
-		const { style } = this.props;
+		const { style, containerStyle } = this.props;
 
 		return (
 			<View style={[modalWrapper, style]}>
-				<View style={modalContainer}>
+				<View style={[modalContainer, containerStyle]}>
 					{!this.state.showContactForm && this.renderRatingView()}
 					{this.state.showContactForm && this.renderContactFormView()}
 				</View>
@@ -93,28 +93,32 @@ export class RateModal extends Component<IProps, IState> {
 
 	private renderRatingView(): JSX.Element {
 		const { title, buttonContainer, button, buttonCancel, buttonCancelText } = RateModalStyles;
-		const { starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, rateBtnText, modalTitle } = this.props;
+		const { starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, rateBtnText, modalTitle, selectedColor, reviewColor, titleStyle, cancelButtonTextStyle, cancelButtonContainerStyle, rateButtonTextStyle, rateButtonContainerStyle } = this.props;
 
 		return (
 			<React.Fragment>
-				<Text style={title}>{modalTitle}</Text>
+				<Text style={[title, titleStyle]}>{modalTitle}</Text>
 				<AirbnbRating
 					count={totalStarCount}
 					defaultRating={defaultStars}
 					showRating={isVisible}
 					reviews={starLabels}
 					onFinishRating={(e: number) => this.onStarSelected(e)}
+					{...{
+						reviewColor,
+						selectedColor,
+					}}
 				/>
 
 				<View style={buttonContainer}>
 					<View style={{ flex: 1 }}></View>
 					<Button
 						text={cancelBtnText}
-						containerStyle={[button, buttonCancel]}
-						textStyle={buttonCancelText}
+						containerStyle={[button, buttonCancel, cancelButtonContainerStyle]}
+						textStyle={[buttonCancelText, cancelButtonTextStyle]}
 						onPress={this.onClosed.bind(this)}
 					/>
-					<Button text={rateBtnText} containerStyle={button} onPress={this.sendRate.bind(this)} />
+					<Button text={rateBtnText} textStyle={rateButtonTextStyle} containerStyle={[button, rateButtonContainerStyle]} onPress={this.sendRate.bind(this)} />
 				</View>
 			</React.Fragment>
 		);
@@ -122,7 +126,7 @@ export class RateModal extends Component<IProps, IState> {
 
 	private renderContactFormView(): JSX.Element {
 		const { buttonContainer, button } = RateModalStyles;
-		const { commentPlaceholderText, sendBtnText } = this.props;
+		const { commentPlaceholderText, sendBtnText, rateButtonTextStyle, rateButtonContainerStyle, placeholderTextColor } = this.props;
 
 		return (
 			<React.Fragment>
@@ -134,13 +138,14 @@ export class RateModal extends Component<IProps, IState> {
 					multiline
 					autoFocus
 					onChangeText={(value: string) => this.setState({ review: value, reviewError: false })}
+					placeholderTextColor={placeholderTextColor}
 				/>
 				<View>
 					{this.state.reviewError &&	this.renderReviewError()}
 				</View>
 				<View style={buttonContainer}>
 					<View style={{ flex: 1 }}></View>
-					<Button text={sendBtnText} containerStyle={button} onPress={this.sendContactUsForm.bind(this)} />
+					<Button text={sendBtnText} textStyle={rateButtonTextStyle} containerStyle={[button, rateButtonContainerStyle]} onPress={this.sendContactUsForm.bind(this)} />
 				</View>
 			</React.Fragment>
 		);
@@ -148,10 +153,10 @@ export class RateModal extends Component<IProps, IState> {
 
 	private renderReviewError(): JSX.Element {
 		const { errorText } = RateModalStyles;
-		const { emptyCommentErrorMessage } = this.props;
+		const { emptyCommentErrorMessage, errorTextStyle } = this.props;
 
 		return (
-			<Text style={errorText}>
+			<Text style={[errorText, errorTextStyle]}>
 				{emptyCommentErrorMessage}
 			</Text>
 		);

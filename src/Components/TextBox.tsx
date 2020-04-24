@@ -58,6 +58,7 @@ export class TextBox extends Component<IProps, IState> {
 					maxLength={this.props.maxLength}
 					onSubmitEditing={this.props.onSubmitEditing}
 					returnKeyType={this.props.returnKeyType}
+					placeholderTextColor={this.props.placeholderTextColor}
 				/>
 		);
 	}
