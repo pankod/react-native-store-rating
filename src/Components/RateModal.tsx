@@ -49,7 +49,7 @@ export class RateModal extends Component<IProps, IState> {
 		);
 	}
 
-	public componentWillMount(): void {
+	public UNSAFE_componentWillMount(): void {
 		const { OS } = Platform;
 		const { totalStarCount, isVisible, starLabels, playStoreUrl, iTunesStoreUrl } = this.props;
 		if (isVisible && starLabels.length !== totalStarCount) {
@@ -61,7 +61,7 @@ export class RateModal extends Component<IProps, IState> {
 		}
 	}
 
-	public componentWillReceiveProps(nextProps): void {
+	public UNSAFE_componentWillReceiveProps(nextProps): void {
 		if (this.props.isModalOpen !== nextProps.isModalOpen) {
 			this.setState({
 				isModalOpen: nextProps.isModalOpen,
