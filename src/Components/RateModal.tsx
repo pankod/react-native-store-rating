@@ -79,11 +79,11 @@ export class RateModal extends Component<IProps, IState> {
 
 	private renderRateModal(): JSX.Element {
 		const { modalContainer, modalWrapper } = RateModalStyles;
-		const { style } = this.props;
+		const { style, styles } = this.props;
 
 		return (
-			<View style={[modalWrapper, style]}>
-				<View style={modalContainer}>
+			<View style={[modalWrapper, style, styles.modalWrapper]}>
+				<View style={[modalContainer, styles.modalContainer]}>
 					{!this.state.showContactForm && this.renderRatingView()}
 					{this.state.showContactForm && this.renderContactFormView()}
 				</View>
@@ -93,11 +93,11 @@ export class RateModal extends Component<IProps, IState> {
 
 	private renderRatingView(): JSX.Element {
 		const { title, buttonContainer, button, buttonCancel, buttonCancelText } = RateModalStyles;
-		const { starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, rateBtnText, modalTitle } = this.props;
+		const { starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, rateBtnText, modalTitle, styles } = this.props;
 
 		return (
 			<React.Fragment>
-				<Text style={title}>{modalTitle}</Text>
+				<Text style={[title, styles.title]}>{modalTitle}</Text>
 				<AirbnbRating
 					count={totalStarCount}
 					defaultRating={defaultStars}
@@ -106,11 +106,11 @@ export class RateModal extends Component<IProps, IState> {
 					onFinishRating={(e: number) => this.onStarSelected(e)}
 				/>
 
-				<View style={buttonContainer}>
+				<View style={[buttonContainer, styles.buttonContainer]}>
 					<View style={{ flex: 1 }}></View>
 					<Button
 						text={cancelBtnText}
-						containerStyle={[button, buttonCancel]}
+						containerStyle={[button, buttonCancel, styles.button, styles.buttonCancel]}
 						textStyle={buttonCancelText}
 						onPress={this.onClosed.bind(this)}
 					/>

@@ -1,4 +1,4 @@
-import { ViewStyle } from 'react-native';
+import { ViewStyle, TextStyle } from 'react-native';
 
 export interface IProps {
 	modalTitle: string;
@@ -18,6 +18,14 @@ export interface IProps {
 	playStoreUrl?: string;
 	iTunesStoreUrl?: string;
 	style: ViewStyle;
+	styles: {
+		title: TextStyle,
+		modalWrapper: ViewStyle,
+		buttonContainer: ViewStyle,
+		button: ViewStyle,
+		buttonCancel: ViewStyle,
+		modalContainer: ViewStyle,
+	};
 	starLabels: string[];
 	isTransparent: boolean;
 }
