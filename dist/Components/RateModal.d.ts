@@ -23,6 +23,7 @@ export declare class RateModal extends Component<IProps, IState> {
     UNSAFE_componentWillReceiveProps(nextProps: any): void;
     private onStarSelected;
     private renderRateModal;
+    private cancelButton;
     private renderRatingView;
     private renderContactFormView;
     private renderReviewError;
