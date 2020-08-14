@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RateModalStyles = void 0;
 const react_native_1 = require("react-native");
 const Color_1 = require("./Color");
 exports.RateModalStyles = react_native_1.StyleSheet.create({

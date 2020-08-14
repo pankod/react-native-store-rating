@@ -19,6 +19,8 @@ export interface IProps {
     style: ViewStyle;
     starLabels: string[];
     isTransparent: boolean;
+    buttonStyle: ViewStyle;
+    onSendReview: () => void;
 }
 export interface IState {
     rating: number;

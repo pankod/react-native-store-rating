@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PrimaryColor = exports.Color = void 0;
 var Color;
 (function (Color) {
     Color.White = {
