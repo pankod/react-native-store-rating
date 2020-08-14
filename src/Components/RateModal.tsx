@@ -121,8 +121,8 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	private renderContactFormView(): JSX.Element {
-		const { buttonContainer, button } = RateModalStyles;
-		const { commentPlaceholderText, sendBtnText } = this.props;
+		const { buttonContainer, button, buttonCancel, buttonCancelText } = RateModalStyles;
+		const { commentPlaceholderText, sendBtnText, cancelBtnText } = this.props;
 
 		return (
 			<React.Fragment>
@@ -139,7 +139,13 @@ export class RateModal extends Component<IProps, IState> {
 					{this.state.reviewError &&	this.renderReviewError()}
 				</View>
 				<View style={buttonContainer}>
-					<View style={{ flex: 1 }}></View>
+					<View style={{ flex: 1 }} />
+					<Button
+						text={cancelBtnText}
+						containerStyle={[button, buttonCancel]}
+						textStyle={buttonCancelText}
+						onPress={this.onClosed.bind(this)}
+					/>
 					<Button text={sendBtnText} containerStyle={button} onPress={this.sendContactUsForm.bind(this)} />
 				</View>
 			</React.Fragment>
