@@ -91,9 +91,22 @@ export class RateModal extends Component<IProps, IState> {
 		);
 	}
 
+	private cancelButton(): JSX.Element {
+		const { button, buttonCancel, buttonCancelText } = RateModalStyles;
+		const { cancelBtnText } = this.props;
+		return (
+			<Button
+			text={cancelBtnText}
+			containerStyle={[button, buttonCancel]}
+			textStyle={buttonCancelText}
+			onPress={this.onClosed.bind(this)}
+			/>
+		);
+	}
+
 	private renderRatingView(): JSX.Element {
-		const { title, buttonContainer, button, buttonCancel, buttonCancelText } = RateModalStyles;
-		const { starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, rateBtnText, modalTitle } = this.props;
+		const { title, buttonContainer, button } = RateModalStyles;
+		const { starLabels, isVisible, totalStarCount, defaultStars, rateBtnText, modalTitle } = this.props;
 
 		return (
 			<React.Fragment>
@@ -107,13 +120,8 @@ export class RateModal extends Component<IProps, IState> {
 				/>
 
 				<View style={buttonContainer}>
-					<View style={{ flex: 1 }}></View>
-					<Button
-						text={cancelBtnText}
-						containerStyle={[button, buttonCancel]}
-						textStyle={buttonCancelText}
-						onPress={this.onClosed.bind(this)}
-					/>
+					<View style={{ flex: 1 }} />
+					{this.cancelButton()}
 					<Button text={rateBtnText} containerStyle={button} onPress={this.sendRate.bind(this)} />
 				</View>
 			</React.Fragment>
@@ -121,8 +129,8 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	private renderContactFormView(): JSX.Element {
-		const { buttonContainer, button, buttonCancel, buttonCancelText } = RateModalStyles;
-		const { commentPlaceholderText, sendBtnText, cancelBtnText } = this.props;
+		const { buttonContainer, button } = RateModalStyles;
+		const { commentPlaceholderText, sendBtnText } = this.props;
 
 		return (
 			<React.Fragment>
@@ -140,12 +148,7 @@ export class RateModal extends Component<IProps, IState> {
 				</View>
 				<View style={buttonContainer}>
 					<View style={{ flex: 1 }} />
-					<Button
-						text={cancelBtnText}
-						containerStyle={[button, buttonCancel]}
-						textStyle={buttonCancelText}
-						onPress={this.onClosed.bind(this)}
-					/>
+					{this.cancelButton()}
 					<Button text={sendBtnText} containerStyle={button} onPress={this.sendContactUsForm.bind(this)} />
 				</View>
 			</React.Fragment>
