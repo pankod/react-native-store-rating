@@ -1,4 +1,4 @@
-import { ViewStyle } from 'react-native';
+import { ViewStyle } from 'react-native'
 
 export interface IProps {
 	modalTitle: string;
@@ -20,6 +20,7 @@ export interface IProps {
 	style: ViewStyle;
 	starLabels: string[];
 	isTransparent: boolean;
+	onSendReview:()=> void;
 }
 export interface IState {
 	rating: number;

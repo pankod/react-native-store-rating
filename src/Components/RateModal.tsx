@@ -1,13 +1,19 @@
+import React, { Component } from 'react'
+import { AirbnbRating } from 'react-native-ratings'
+import { Button } from './Button'
+import { IProps, IState } from '../Interfaces/IRateModal'
+import {
+	Linking,
+	Modal,
+	Platform,
+	Text,
+	View
+	} from 'react-native'
+import { RateModalStyles } from '../Assets/Styles/RateModal'
+import { TextBox } from './TextBox'
 
-import React, { Component } from 'react';
-import { Linking, Modal, Platform, Text, View } from 'react-native';
-import { AirbnbRating } from 'react-native-ratings';
 
-import { RateModalStyles } from '../Assets/Styles/RateModal';
-import { Button } from './Button';
-import { TextBox } from './TextBox';
 
-import { IProps, IState } from '../Interfaces/IRateModal';
 
 export class RateModal extends Component<IProps, IState> {
 
@@ -172,9 +178,12 @@ export class RateModal extends Component<IProps, IState> {
 			Platform.OS === 'ios' ?
 				Linking.openURL(iTunesStoreUrl) :
 				Linking.openURL(playStoreUrl);
-        this.setState({ isModalOpen: false });
-        onSendReview();
+		if (onSendReview) {
+			onSendReview();
 		} else {
+			this.setState({ isModalOpen: false });
+		}
+	} else {
 			this.setState({ showContactForm: true });
 		}
 	}

@@ -8,10 +8,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
-const react_native_1 = require("react-native");
 const react_native_ratings_1 = require("react-native-ratings");
-const RateModal_1 = require("../Assets/Styles/RateModal");
 const Button_1 = require("./Button");
+const react_native_1 = require("react-native");
+const RateModal_1 = require("../Assets/Styles/RateModal");
 const TextBox_1 = require("./TextBox");
 class RateModal extends react_1.Component {
     constructor(props) {
@@ -100,11 +100,17 @@ class RateModal extends react_1.Component {
         }
     }
     sendRate() {
-        const { storeRedirectThreshold, playStoreUrl, iTunesStoreUrl } = this.props;
+        const { storeRedirectThreshold, playStoreUrl, iTunesStoreUrl, onSendReview } = this.props;
         if (this.state.rating > storeRedirectThreshold) {
             react_native_1.Platform.OS === 'ios' ?
                 react_native_1.Linking.openURL(iTunesStoreUrl) :
                 react_native_1.Linking.openURL(playStoreUrl);
+            if (onSendReview) {
+                onSendReview();
+            }
+            else {
+                this.setState({ isModalOpen: false });
+            }
         }
         else {
             this.setState({ showContactForm: true });
