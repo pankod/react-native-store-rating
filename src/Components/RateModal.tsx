@@ -12,19 +12,20 @@ import { IProps, IState } from '../Interfaces/IRateModal';
 export class RateModal extends Component<IProps, IState> {
 
 	public static defaultProps = {
-		modalTitle: 'How many stars do you give to this app?',
+		buttonStyle: {},
 		cancelBtnText: 'Cancel',
-		totalStarCount: 5,
+		commentPlaceholderText: 'You can type your comments here ...',
 		defaultStars: 5,
 		emptyCommentErrorMessage: 'Please specify your opinion.',
-		isVisible: true,
 		isModalOpen: false,
-		commentPlaceholderText: 'You can type your comments here ...',
+		isTransparent: true,
+		isVisible: true,
+		modalTitle: 'How many stars do you give to this app?',
 		rateBtnText: 'Rate',
 		sendBtnText: 'Send',
-		storeRedirectThreshold: 3,
 		starLabels: ['Terrible', 'Bad', 'Okay', 'Good', 'Great'],
-		isTransparent: true,
+		storeRedirectThreshold: 3,
+		totalStarCount: 5,
 	};
 
 	constructor(props: IProps) {
@@ -49,7 +50,7 @@ export class RateModal extends Component<IProps, IState> {
 		);
 	}
 
-	public componentWillMount(): void {
+	public UNSAFE_componentWillMount(): void {
 		const { OS } = Platform;
 		const { totalStarCount, isVisible, starLabels, playStoreUrl, iTunesStoreUrl } = this.props;
 		if (isVisible && starLabels.length !== totalStarCount) {
@@ -61,7 +62,7 @@ export class RateModal extends Component<IProps, IState> {
 		}
 	}
 
-	public componentWillReceiveProps(nextProps): void {
+	public UNSAFE_componentWillReceiveProps(nextProps): void {
 		if (this.props.isModalOpen !== nextProps.isModalOpen) {
 			this.setState({
 				isModalOpen: nextProps.isModalOpen,
@@ -93,7 +94,16 @@ export class RateModal extends Component<IProps, IState> {
 
 	private renderRatingView(): JSX.Element {
 		const { title, buttonContainer, button, buttonCancel, buttonCancelText } = RateModalStyles;
-		const { starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, rateBtnText, modalTitle } = this.props;
+		const {
+			starLabels,
+			isVisible,
+			cancelBtnText,
+			totalStarCount,
+			defaultStars,
+			rateBtnText,
+			modalTitle,
+			buttonStyle,
+		} = this.props;
 
 		return (
 			<React.Fragment>
@@ -107,14 +117,14 @@ export class RateModal extends Component<IProps, IState> {
 				/>
 
 				<View style={buttonContainer}>
-					<View style={{ flex: 1 }}></View>
+					<View style={{ flex: 1 }} />
 					<Button
 						text={cancelBtnText}
 						containerStyle={[button, buttonCancel]}
 						textStyle={buttonCancelText}
 						onPress={this.onClosed.bind(this)}
 					/>
-					<Button text={rateBtnText} containerStyle={button} onPress={this.sendRate.bind(this)} />
+					<Button text={rateBtnText} containerStyle={[button, buttonStyle]} onPress={this.sendRate.bind(this)} />
 				</View>
 			</React.Fragment>
 		);
@@ -172,8 +182,8 @@ export class RateModal extends Component<IProps, IState> {
 			Platform.OS === 'ios' ?
 				Linking.openURL(iTunesStoreUrl) :
 				Linking.openURL(playStoreUrl);
-        this.setState({ isModalOpen: false });
-        onSendReview();
+			this.setState({ isModalOpen: false });
+			onSendReview();
 		} else {
 			this.setState({ showContactForm: true });
 		}
