@@ -136,7 +136,7 @@ export class RateModal extends Component<IProps, IState> {
 					onChangeText={(value: string) => this.setState({ review: value, reviewError: false })}
 				/>
 				<View>
-					{this.state.reviewError &&	this.renderReviewError()}
+					{this.state.reviewError && this.renderReviewError()}
 				</View>
 				<View style={buttonContainer}>
 					<View style={{ flex: 1 }}></View>
@@ -172,8 +172,8 @@ export class RateModal extends Component<IProps, IState> {
 			Platform.OS === 'ios' ?
 				Linking.openURL(iTunesStoreUrl) :
 				Linking.openURL(playStoreUrl);
-        this.setState({ isModalOpen: false });
-        onSendReview();
+			this.setState({ isModalOpen: false });
+			onSendReview();
 		} else {
 			this.setState({ showContactForm: true });
 		}
