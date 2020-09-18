@@ -49,7 +49,7 @@ export class RateModal extends Component<IProps, IState> {
 		);
 	}
 
-	public componentWillMount(): void {
+	public UNSAFE_componentWillMount(): void {
 		const { OS } = Platform;
 		const { totalStarCount, isVisible, starLabels, playStoreUrl, iTunesStoreUrl } = this.props;
 		if (isVisible && starLabels.length !== totalStarCount) {
@@ -61,7 +61,7 @@ export class RateModal extends Component<IProps, IState> {
 		}
 	}
 
-	public componentWillReceiveProps(nextProps): void {
+	public UNSAFE_componentWillReceiveProps(nextProps): void {
 		if (this.props.isModalOpen !== nextProps.isModalOpen) {
 			this.setState({
 				isModalOpen: nextProps.isModalOpen,
@@ -91,9 +91,22 @@ export class RateModal extends Component<IProps, IState> {
 		);
 	}
 
+	private cancelButton(): JSX.Element {
+		const { button, buttonCancel, buttonCancelText } = RateModalStyles;
+		const { cancelBtnText } = this.props;
+		return (
+			<Button
+			text={cancelBtnText}
+			containerStyle={[button, buttonCancel]}
+			textStyle={buttonCancelText}
+			onPress={this.onClosed.bind(this)}
+			/>
+		);
+	}
+
 	private renderRatingView(): JSX.Element {
-		const { title, buttonContainer, button, buttonCancel, buttonCancelText } = RateModalStyles;
-		const { starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, rateBtnText, modalTitle } = this.props;
+		const { title, buttonContainer, button } = RateModalStyles;
+		const { starLabels, isVisible, totalStarCount, defaultStars, rateBtnText, modalTitle } = this.props;
 
 		return (
 			<React.Fragment>
@@ -107,13 +120,8 @@ export class RateModal extends Component<IProps, IState> {
 				/>
 
 				<View style={buttonContainer}>
-					<View style={{ flex: 1 }}></View>
-					<Button
-						text={cancelBtnText}
-						containerStyle={[button, buttonCancel]}
-						textStyle={buttonCancelText}
-						onPress={this.onClosed.bind(this)}
-					/>
+					<View style={{ flex: 1 }} />
+					{this.cancelButton()}
 					<Button text={rateBtnText} containerStyle={button} onPress={this.sendRate.bind(this)} />
 				</View>
 			</React.Fragment>
@@ -139,7 +147,8 @@ export class RateModal extends Component<IProps, IState> {
 					{this.state.reviewError && this.renderReviewError()}
 				</View>
 				<View style={buttonContainer}>
-					<View style={{ flex: 1 }}></View>
+					<View style={{ flex: 1 }} />
+					{this.cancelButton()}
 					<Button text={sendBtnText} containerStyle={button} onPress={this.sendContactUsForm.bind(this)} />
 				</View>
 			</React.Fragment>
