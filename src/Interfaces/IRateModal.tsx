@@ -19,12 +19,12 @@ export interface IProps {
 	iTunesStoreUrl?: string;
 	style: ViewStyle;
 	styles: {
-		title: TextStyle,
-		modalWrapper: ViewStyle,
-		buttonContainer: ViewStyle,
 		button: ViewStyle,
 		buttonCancel: ViewStyle,
+		buttonContainer: ViewStyle,
 		modalContainer: ViewStyle,
+		modalWrapper: ViewStyle,
+		title: TextStyle,
 	};
 	starLabels: string[];
 	isTransparent: boolean;
