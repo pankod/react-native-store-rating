@@ -47,5 +47,4 @@ export interface IState {
     showContactForm: boolean;
     review: string;
     reviewError: boolean;
-    isModalOpen: boolean;
 }

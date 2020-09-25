@@ -23,8 +23,10 @@ export declare class RateModal extends Component<IProps, IState> {
     };
     constructor(props: IProps);
     render(): JSX.Element;
-    UNSAFE_componentWillMount(): void;
-    UNSAFE_componentWillReceiveProps(nextProps: any): void;
+    static getDerivedStateFromProps(nextProps: IProps): {
+        rating?: number;
+        showContactForm?: boolean;
+    } | null;
     private onStarSelected;
     private renderRateModal;
     private renderRatingView;

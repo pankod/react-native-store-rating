@@ -9,6 +9,8 @@ import { TextBox } from './TextBox';
 
 import { IProps, IState } from '../Interfaces/IRateModal';
 
+let prevIsModalOpen = false;
+
 export class RateModal extends Component<IProps, IState> {
 
 	public static defaultProps = {
@@ -35,17 +37,25 @@ export class RateModal extends Component<IProps, IState> {
 		super(props);
 
 		this.state = {
-			isModalOpen: props.isModalOpen,
 			rating: props.defaultStars,
 			review: '',
 			reviewError: false,
 			showContactForm: false,
 		};
+
+		const { OS } = Platform;
+		const { totalStarCount, isVisible, starLabels, playStoreUrl, iTunesStoreUrl } = props;
+		if (isVisible && starLabels.length !== totalStarCount) {
+			throw new Error(`You should define at least ${starLabels.length} review values`);
+		} else if (OS === 'android' && !playStoreUrl) {
+			throw new Error('Enter a valid store url');
+		} else if (OS === 'ios' && !iTunesStoreUrl) {
+			throw new Error('Enter a valid store url');
+		}
 	}
 
 	public render(): JSX.Element {
-		const { onClosed, isTransparent, modalProps } = this.props;
-		const { isModalOpen } = this.state;
+		const { onClosed, isTransparent, modalProps, isModalOpen } = this.props;
 
 		return (
 			<Modal
@@ -59,26 +69,22 @@ export class RateModal extends Component<IProps, IState> {
 		);
 	}
 
-	public UNSAFE_componentWillMount(): void {
-		const { OS } = Platform;
-		const { totalStarCount, isVisible, starLabels, playStoreUrl, iTunesStoreUrl } = this.props;
-		if (isVisible && starLabels.length !== totalStarCount) {
-			throw new Error('You should define at least 5 review values');
-		} else if (OS === 'android' && !playStoreUrl) {
-			throw new Error('Enter a valid store url');
-		} else if (OS === 'ios' && !iTunesStoreUrl) {
-			throw new Error('Enter a valid store url');
-		}
-	}
+	public static getDerivedStateFromProps(nextProps: IProps): {rating?: number, showContactForm?: boolean} | null {
+		const { isModalOpen, defaultStars } = nextProps;
+		const isMounting = isModalOpen && !prevIsModalOpen;
+		prevIsModalOpen = isModalOpen;
 
-	public UNSAFE_componentWillReceiveProps(nextProps): void {
-		console.log(nextProps.isModalOpen);
-		if (this.props.isModalOpen !== nextProps.isModalOpen) {
-			this.setState({
-				isModalOpen: nextProps.isModalOpen,
-				rating: nextProps.defaultStars,
-			});
+		if (isMounting) {
+			// We might need some resetting, when the modal appears
+			return {
+				rating: defaultStars,
+				showContactForm: false,
+				// We don't reset the previous (not sent) review,
+				// because the user might continue it
+			};
 		}
+
+		return null;
 	}
 
 	private onStarSelected(e: number): void {
@@ -199,25 +205,12 @@ export class RateModal extends Component<IProps, IState> {
 		);
 	}
 
-	private handleClose(): void {
-		const { onClosed } = this.props;
-		if (onClosed) {
-			onClosed();
-		} else {
-			this.setState({ isModalOpen: false });
-		}
-	}
-
 	private handleCancel(): void {
-		this.setState({
-			showContactForm: false,
-		});
-
-		this.handleClose();
+		this.props.onClosed();
 	}
 
 	private sendRate(): void {
-		const { storeRedirectThreshold, playStoreUrl, iTunesStoreUrl, onSendReview } = this.props;
+		const { storeRedirectThreshold, playStoreUrl, iTunesStoreUrl, onSendReview, onClosed } = this.props;
 
 		if (this.state.rating > storeRedirectThreshold) {
 			// That's why we are actually here
@@ -229,30 +222,27 @@ export class RateModal extends Component<IProps, IState> {
       onSendReview({ ...this.state });
 
       // Close dialog
-      this.handleClose();
+      onClosed();
 		} else {
 			this.setState({ showContactForm: true });
 		}
 	}
 
 	private sendContactUsForm(): void {
-		const { sendContactUsForm } = this.props;
+		const { sendContactUsForm, onClosed } = this.props;
 
 		if (this.state.review.length > 0) {
 			if (sendContactUsForm && typeof sendContactUsForm === 'function') {
-				const state = { ...this.state };
-
 				// Reset window
 				this.setState({
-					showContactForm: false,
 					review: '',
 				})
 
 				// Send data
-  			sendContactUsForm(state);
+  			sendContactUsForm({ ...this.state });
 
   			// Close dialog
-  			this.handleClose();
+  			onClosed();
 			} else {
 				throw new Error('You should generate sendContactUsForm function');
 			}

@@ -13,25 +13,18 @@ const react_native_ratings_1 = require("react-native-ratings");
 const RateModal_1 = require("../Assets/Styles/RateModal");
 const Button_1 = require("./Button");
 const TextBox_1 = require("./TextBox");
+let prevIsModalOpen = false;
 class RateModal extends react_1.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isModalOpen: props.isModalOpen,
             rating: props.defaultStars,
             review: '',
             reviewError: false,
             showContactForm: false,
         };
-    }
-    render() {
-        const { onClosed, isTransparent, modalProps } = this.props;
-        const { isModalOpen } = this.state;
-        return (react_1.default.createElement(react_native_1.Modal, Object.assign({ transparent: isTransparent, visible: isModalOpen, onRequestClose: () => onClosed }, modalProps), this.renderRateModal()));
-    }
-    UNSAFE_componentWillMount() {
         const { OS } = react_native_1.Platform;
-        const { totalStarCount, isVisible, starLabels, playStoreUrl, iTunesStoreUrl } = this.props;
+        const { totalStarCount, isVisible, starLabels, playStoreUrl, iTunesStoreUrl } = props;
         if (isVisible && starLabels.length !== totalStarCount) {
             throw new Error('You should define at least 5 review values');
         }
@@ -42,14 +35,20 @@ class RateModal extends react_1.Component {
             throw new Error('Enter a valid store url');
         }
     }
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        console.log(nextProps.isModalOpen);
-        if (this.props.isModalOpen !== nextProps.isModalOpen) {
-            this.setState({
-                isModalOpen: nextProps.isModalOpen,
+    render() {
+        const { onClosed, isTransparent, modalProps, isModalOpen } = this.props;
+        return (react_1.default.createElement(react_native_1.Modal, Object.assign({ transparent: isTransparent, visible: isModalOpen, onRequestClose: onClosed }, modalProps), this.renderRateModal()));
+    }
+    static getDerivedStateFromProps(nextProps) {
+        if (nextProps.isModalOpen && !prevIsModalOpen) {
+            prevIsModalOpen = nextProps.isModalOpen;
+            return {
                 rating: nextProps.defaultStars,
-            });
+                showContactForm: false,
+            };
         }
+        prevIsModalOpen = nextProps.isModalOpen;
+        return null;
     }
     onStarSelected(e) {
         const { onStarSelected } = this.props;
@@ -105,18 +104,9 @@ class RateModal extends react_1.Component {
         return (react_1.default.createElement(react_native_1.Text, { style: [errorText, styles.errorText] }, emptyCommentErrorMessage));
     }
     handleClose() {
-        const { onClosed } = this.props;
-        if (onClosed) {
-            onClosed();
-        }
-        else {
-            this.setState({ isModalOpen: false });
-        }
+        this.props.onClosed();
     }
     handleCancel() {
-        this.setState({
-            showContactForm: false,
-        });
         this.handleClose();
     }
     sendRate() {
@@ -136,12 +126,10 @@ class RateModal extends react_1.Component {
         const { sendContactUsForm } = this.props;
         if (this.state.review.length > 0) {
             if (sendContactUsForm && typeof sendContactUsForm === 'function') {
-                const state = { ...this.state };
                 this.setState({
-                    showContactForm: false,
                     review: '',
                 });
-                sendContactUsForm(state);
+                sendContactUsForm({ ...this.state });
                 this.handleClose();
             }
             else {
