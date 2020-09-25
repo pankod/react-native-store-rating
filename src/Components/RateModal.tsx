@@ -5,6 +5,7 @@ import { AirbnbRating } from 'react-native-ratings';
 
 import { RateModalStyles } from '../Assets/Styles/RateModal';
 import { Button } from './Button';
+import { ButtonContainer } from './ButtonContainer';
 import { TextBox } from './TextBox';
 
 import { IProps, IState } from '../Interfaces/IRateModal';
@@ -110,37 +111,38 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	private renderRatingView(): JSX.Element {
-		const { title, buttonContainer } = RateModalStyles;
+		const { title } = RateModalStyles;
 		const { modalTitle, styles } = this.props;
 
 		return (
 			<React.Fragment>
 				<Text style={[title, styles.title]}>{modalTitle}</Text>
+
 				{this.renderRating()}
-				<View style={[buttonContainer, styles.buttonContainer]}>
-					<View style={{ flex: 1 }}></View>
+
+				<ButtonContainer styles={ styles }>
 					{this.renderCancelButton()}
 					{this.renderRateButton()}
-				</View>
+				</ButtonContainer>
 			</React.Fragment>
 		);
 	}
 
 	private renderContactFormView(): JSX.Element {
-		const { buttonContainer } = RateModalStyles;
 		const { styles } = this.props;
 
 		return (
 			<React.Fragment>
 				{this.renderContactForm()}
+
 				<View>
 					{this.state.reviewError && this.renderReviewError()}
 				</View>
-				<View style={[buttonContainer, styles.buttonContainer]}>
-					<View style={{ flex: 1 }}></View>
+
+				<ButtonContainer styles={ styles }>
 					{this.renderCancelButton()}
 					{this.renderSendButton()}
-				</View>
+				</ButtonContainer>
 			</React.Fragment>
 		);
 	}
