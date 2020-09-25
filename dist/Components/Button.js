@@ -15,9 +15,10 @@ class Button extends react_1.Component {
         super(props);
     }
     render() {
-        return (react_1.default.createElement(react_native_1.TouchableOpacity, { accessibilityLabel: this.props.accessibilityLabel, style: [Button_1.ButtonStyles.containerStyle, this.props.containerStyle], onPress: this.onPress.bind(this) },
+        const { disabled, accessibilityLabel, containerStyle, textStyle, text } = this.props;
+        return (react_1.default.createElement(react_native_1.TouchableOpacity, { disabled: disabled, accessibilityLabel: accessibilityLabel, style: [Button_1.ButtonStyles.containerStyle, containerStyle], onPress: this.onPress.bind(this) },
             this.renderImage(),
-            react_1.default.createElement(react_native_1.Text, { style: [Button_1.ButtonStyles.textStyle, this.props.textStyle] }, this.props.text)));
+            react_1.default.createElement(react_native_1.Text, { style: [Button_1.ButtonStyles.textStyle, textStyle] }, text)));
     }
     renderImage() {
         return this.props.image && react_1.default.createElement(react_native_1.Image, { style: [Button_1.ButtonStyles.imageStyle, this.props.imageStyle], source: this.props.image });

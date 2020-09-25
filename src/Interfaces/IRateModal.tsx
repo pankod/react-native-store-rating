@@ -1,3 +1,4 @@
+import { ElementType } from 'react';
 import { ViewStyle, TextStyle } from 'react-native';
 
 export interface IProps {
@@ -19,13 +20,26 @@ export interface IProps {
 	iTunesStoreUrl?: string;
 	style: ViewStyle;
 	styles: {
-		button: ViewStyle,
-		buttonCancel: ViewStyle,
-		buttonContainer: ViewStyle,
-		modalContainer: ViewStyle,
-		modalWrapper: ViewStyle,
 		title: TextStyle,
+		modalWrapper: ViewStyle,
+		buttonContainer: ViewStyle,
+		button: ViewStyle,
+		buttonText: TextStyle,
+		buttonCancel: ViewStyle,
+		modalContainer: ViewStyle,
+		buttonCancelText: TextStyle,
+		textBox: ViewStyle,
+		buttonDisabled: ViewStyle,
+		errorText: TextStyle,
 	};
+	ratingProps: {
+	  ratingColor?: string;
+	};
+	ratingComponent?: ElementType;
+	modalProps?: {
+		animationType?: 'slide' | 'fade' | 'none',
+	};
+	onSendReview: (state: IState) => void;
 	starLabels: string[];
 	isTransparent: boolean;
 }

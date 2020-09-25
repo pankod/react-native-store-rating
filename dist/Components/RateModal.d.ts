@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { AirbnbRating } from 'react-native-ratings';
 import { IProps, IState } from '../Interfaces/IRateModal';
 export declare class RateModal extends Component<IProps, IState> {
     static defaultProps: {
@@ -15,17 +16,22 @@ export declare class RateModal extends Component<IProps, IState> {
         storeRedirectThreshold: number;
         starLabels: string[];
         isTransparent: boolean;
+        styles: {};
+        ratingProps: {};
+        ratingComponent: typeof AirbnbRating;
+        modalProps: {};
     };
     constructor(props: IProps);
     render(): JSX.Element;
-    componentWillMount(): void;
-    componentWillReceiveProps(nextProps: any): void;
+    UNSAFE_componentWillMount(): void;
+    UNSAFE_componentWillReceiveProps(nextProps: any): void;
     private onStarSelected;
     private renderRateModal;
     private renderRatingView;
     private renderContactFormView;
     private renderReviewError;
-    private onClosed;
+    private handleClose;
+    private handleCancel;
     private sendRate;
     private sendContactUsForm;
 }
