@@ -110,91 +110,129 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	private renderRatingView(): JSX.Element {
-		const { title, buttonContainer, button, buttonCancel, buttonCancelText } = RateModalStyles;
-		const { ratingProps, ratingComponent, starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, rateBtnText, modalTitle, styles } = this.props;
-
-		const RatingComponent = ratingComponent;
+		const { title, buttonContainer } = RateModalStyles;
+		const { modalTitle, styles } = this.props;
 
 		return (
 			<React.Fragment>
 				<Text style={[title, styles.title]}>{modalTitle}</Text>
-				<RatingComponent
-					count={totalStarCount}
-					defaultRating={defaultStars}
-					showRating={isVisible}
-					reviews={starLabels}
-					onFinishRating={(e: number) => this.onStarSelected(e)}
-					{...ratingProps}
-				/>
-
+				{this.renderRating()}
 				<View style={[buttonContainer, styles.buttonContainer]}>
 					<View style={{ flex: 1 }}></View>
-					<Button
-						text={cancelBtnText}
-						containerStyle={[button, buttonCancel, styles.button, styles.buttonCancel]}
-						textStyle={[buttonCancelText, styles.buttonText, styles.buttonCancelText]}
-						onPress={this.handleCancel.bind(this)}
-					/>
-					<Button
-						text={rateBtnText}
-						containerStyle={[button, styles.button]}
-						textStyle={styles.buttonText}
-						onPress={this.sendRate.bind(this)}
-					/>
+					{this.renderCancelButton()}
+					{this.renderRateButton()}
 				</View>
 			</React.Fragment>
 		);
 	}
 
 	private renderContactFormView(): JSX.Element {
-		const { buttonContainer, button, buttonCancel, buttonCancelText } = RateModalStyles;
-		const { commentPlaceholderText, sendBtnText, styles, cancelBtnText } = this.props;
-		const { review } = this.state;
+		const { buttonContainer } = RateModalStyles;
+		const { styles } = this.props;
 
 		return (
 			<React.Fragment>
-				<TextBox
-					containerStyle={[RateModalStyles.textBox, styles.textBox]}
-					textStyle={{ paddingVertical: 5 }}
-					value={this.state.review}
-					placeholder={commentPlaceholderText}
-					multiline
-					autoFocus
-					onChangeText={(value: string) => this.setState({ review: value, reviewError: false })}
-				/>
+				{this.renderContactForm()}
 				<View>
 					{this.state.reviewError && this.renderReviewError()}
 				</View>
 				<View style={[buttonContainer, styles.buttonContainer]}>
 					<View style={{ flex: 1 }}></View>
-					<Button
-						text={cancelBtnText}
-						containerStyle={[
-							button,
-							buttonCancel,
-							styles.button,
-							styles.buttonCancel,
-						]}
-						textStyle={[buttonCancelText, styles.buttonText, styles.buttonCancelText]}
-						onPress={this.handleCancel.bind(this)}
-					/>
-					<Button
-						text={sendBtnText}
-						disabled={review === '' && typeof styles.buttonDisabled !== 'undefined'}
-						containerStyle={[
-							button,
-							styles.button,
-							...(review === '' ? [styles.buttonDisabled] : []),
-						]}
-						textStyle={styles.buttonText}
-						onPress={this.sendContactUsForm.bind(this)}
-					/>
+					{this.renderCancelButton()}
+					{this.renderSendButton()}
 				</View>
 			</React.Fragment>
 		);
 	}
 
-	private renderReviewError(): JSX.Element {
+	private renderRating(): JSX.Element {
+		const { ratingProps, ratingComponent, starLabels, isVisible, totalStarCount, defaultStars } = this.props;
+
+		const RatingComponent = ratingComponent;
+
+		return (
+			<RatingComponent
+				count={totalStarCount}
+				defaultRating={defaultStars}
+				showRating={isVisible}
+				reviews={starLabels}
+				onFinishRating={(e: number) => this.onStarSelected(e)}
+				{...ratingProps}
+			/>
+		);
+	}
+
+  private renderContactForm(): JSX.Element {
+		const { commentPlaceholderText, styles } = this.props;
+
+		return (
+			<TextBox
+				containerStyle={[RateModalStyles.textBox, styles.textBox]}
+				textStyle={{ paddingVertical: 5 }}
+				value={this.state.review}
+				placeholder={commentPlaceholderText}
+				multiline
+				autoFocus
+				onChangeText={(value: string) => this.setState({ review: value, reviewError: false })}
+			/>
+		);
+	}
+
+	private renderCancelButton(): JSX.Element {
+		const { button, buttonCancel, buttonCancelText } = RateModalStyles;
+		const { styles, cancelBtnText } = this.props;
+
+		return (
+			<Button
+				text={cancelBtnText}
+				containerStyle={[
+					button,
+					buttonCancel,
+					styles.button,
+					styles.buttonCancel,
+				]}
+				textStyle={[buttonCancelText, styles.buttonText, styles.buttonCancelText]}
+				onPress={this.handleCancel.bind(this)}
+			/>
+		);
+	}
+
+	private renderRateButton(): JSX.Element {
+		const { button } = RateModalStyles;
+		const { rateBtnText, styles } = this.props;
+
+		return (
+			<Button
+				text={rateBtnText}
+				containerStyle={[button, styles.button]}
+				textStyle={styles.buttonText}
+				onPress={this.sendRate.bind(this)}
+			/>
+		);
+	}
+
+	private renderSendButton(): JSX.Element {
+		const { button } = RateModalStyles;
+		const { sendBtnText, styles } = this.props;
+
+		const { review } = this.state;
+
+		return (
+			<Button
+				text={sendBtnText}
+				disabled={review === '' && typeof styles.buttonDisabled !== 'undefined'}
+				containerStyle={[
+					button,
+					styles.button,
+					...(review === '' ? [styles.buttonDisabled] : []),
+				]}
+				textStyle={styles.buttonText}
+				onPress={this.sendContactUsForm.bind(this)}
+			/>
+		);
+	}
+
+  private renderReviewError(): JSX.Element {
 		const { errorText } = RateModalStyles;
 		const { emptyCommentErrorMessage, styles } = this.props;
 
