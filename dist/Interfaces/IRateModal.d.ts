@@ -32,7 +32,7 @@ export interface IProps {
         errorText: TextStyle;
     };
     ratingProps: {
-        ratingColor?: string;
+        selectedColor?: string;
     };
     ratingComponent?: ElementType;
     modalProps?: {

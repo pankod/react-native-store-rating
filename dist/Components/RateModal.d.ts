@@ -20,6 +20,7 @@ export declare class RateModal extends Component<IProps, IState> {
         ratingProps: {};
         ratingComponent: typeof AirbnbRating;
         modalProps: {};
+        onSendReview: () => boolean;
     };
     constructor(props: IProps);
     render(): JSX.Element;

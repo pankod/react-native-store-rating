@@ -178,6 +178,7 @@ RateModal.defaultProps = {
     ratingProps: {},
     ratingComponent: react_native_ratings_1.AirbnbRating,
     modalProps: {},
+    onSendReview: () => true,
 };
 exports.RateModal = RateModal;
 //# sourceMappingURL=RateModal.js.map

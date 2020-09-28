@@ -32,6 +32,7 @@ export class RateModal extends Component<IProps, IState> {
 		ratingProps: {},
 		ratingComponent: AirbnbRating,
 		modalProps: {},
+		onSendReview: () => true,
 	};
 
 	constructor(props: IProps) {
@@ -258,7 +259,7 @@ export class RateModal extends Component<IProps, IState> {
 				Linking.openURL(iTunesStoreUrl) :
 				Linking.openURL(playStoreUrl);
 
-      // We might want to do with that info as well as well
+      // We might use that info as well as well
       onSendReview({ ...this.state });
 
       // Close dialog
