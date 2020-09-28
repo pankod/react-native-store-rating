@@ -177,7 +177,7 @@ export default class example extends Component {
 | **emptyCommentErrorMessage** | `string`  | User review comment box validation text | `"Please specify your opinion."` | 
 | **isModalOpen** | `boolean`  | Control if the modal open or not. | `false` | 
 | **storeRedirectThreshold** | `number`  | ? | `3` | 
-| **style** <br> **deprecated** | `Object`  | An object containing the styles objects to style the modal. Use `styles`. | `example:`<br>`{ backgroundColor: #000, paddingHorizontal: 30 }` |
+| **style** <br> **deprecated* | `Object`  | An object containing the styles objects to style the modal. Use `styles` instead. | `example:`<br>`{ backgroundColor: #000, paddingHorizontal: 30 }` |
 | **styles** | `Object` | An object for the styles for all the components inside RateModal (modal, title, buttons, textbox, error message). It overrides the default styling at `Assets/Styles/Ratemodal.tsx`, use the same properties for selectors as there. | `{}` |
 | **ratingComponent** | `React.ElementType` | Your custom rating component. | `react-native-ratings/AirbnbRating` |
 | **ratingProps** | `Object` | Necessary props for the rating component not mentioned above. Depends on the component you use, but here you can set the color of the stars for the AirbnbRating as well. | `{}` |
