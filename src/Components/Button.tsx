@@ -11,14 +11,17 @@ export class Button extends Component<IProps, IState> {
 	}
 
 	public render(): JSX.Element {
+		const {disabled, accessibilityLabel, containerStyle, textStyle, text} = this.props;
+
 		return (
 			<TouchableOpacity
-				accessibilityLabel={this.props.accessibilityLabel}
-				style={[ButtonStyles.containerStyle, this.props.containerStyle]}
+				disabled={disabled}
+				accessibilityLabel={accessibilityLabel}
+				style={[ButtonStyles.containerStyle, containerStyle]}
 				onPress={this.onPress.bind(this)}
 			>
 				{this.renderImage()}
-				<Text style={[ButtonStyles.textStyle, this.props.textStyle]}>{this.props.text}</Text>
+				<Text style={[ButtonStyles.textStyle, textStyle]}>{text}</Text>
 			</TouchableOpacity>
 		);
 	}

@@ -97,6 +97,14 @@ export default class example extends Component {
 		}
 	})
 
+	const rateModalStyles = StyleSheet.create({
+	    button: {
+	      backgroundColor: 'transparent',
+	      borderColor: 'transparent',
+	      textTransform: 'upparcase'
+	    },
+	})
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -105,7 +113,7 @@ export default class example extends Component {
 			</TouchableOpacity>
 
 			<RateModal
-			    	modalTitle="Your modal title"
+			    modalTitle="Your modal title"
 				rateBtnText={'Rate'}
 				cancelBtnText={'Cancel'}
 				totalStarCount={5}
@@ -132,6 +140,13 @@ export default class example extends Component {
 				sendContactUsForm={(state) => {
 					alert(JSON.stringify(state));
 				}}
+				styles={rateModalStyles}
+		        ratingProps={{
+		            selectedColor: 'red',
+		        }}
+		        modalProps={{
+		            animationType: 'fade',
+		        }}
 			/>
 
 			</View >
@@ -162,7 +177,11 @@ export default class example extends Component {
 | **emptyCommentErrorMessage** | `string`  | User review comment box validation text | `"Please specify your opinion."` | 
 | **isModalOpen** | `boolean`  | Control if the modal open or not. | `false` | 
 | **storeRedirectThreshold** | `number`  | ? | `3` | 
-| **style** | `Object`  | An object containing the styles objects to style the modal. | `example:`<br>`{ backgroundColor: #000, paddingHorizontal: 30 }` | 
+| **style** <br> **deprecated* | `Object`  | An object containing the styles objects to style the modal. Use `styles` instead. | `example:`<br>`{ backgroundColor: #000, paddingHorizontal: 30 }` |
+| **styles** | `Object` | An object for the styles for all the components inside RateModal (modal, title, buttons, textbox, error message). It overrides the default styling at `Assets/Styles/Ratemodal.tsx`, use the same properties for selectors as there. | `{}` |
+| **ratingComponent** | `React.ElementType` | Your custom rating component. | `react-native-ratings/AirbnbRating` |
+| **ratingProps** | `Object` | Necessary props for the rating component not mentioned above. Depends on the component you use, but here you can set the color of the stars for the AirbnbRating as well. | `{}` |
+| **modalProps** | `Object` | Props to pass to the React Native's [Modal](https://reactnative.dev/docs/modal) component. | `{}` |
 
 <br/>
 
@@ -172,8 +191,9 @@ export default class example extends Component {
 | Properties | Type | Description |Default |
 |------------|-------------------------------------|-------------|----------------------------------------------------------------|
 | **onStarSelected** | `Function`  | Function fired when the rating has changed.| `return: number` | 
-| **onClosed** | `Function`  | Function fired when the modal has closed.| `console.warn('pressed cancel button...')` | 
-| **sendContactUsForm** <br> **required* | `Function`  | Read component state and function fired when send bottom click | `{ isModalOpen: true, rating: 3, review: "Lorem ipsum dolor sit amet...", reviewError:false, showContactForm:true }` | 
+| **onClosed** <br> **required* | `Function`  | Function fired when the modal has closed.| `console.warn('pressed cancel button...')` | 
+| **onSendReview** | `Function` | Function fired when redirected to the store. Passes the component state. | |
+| **sendContactUsForm** <br> **required* | `Function`  | Read component state and function fired when the user comment was submitted. | `{ isModalOpen: true, rating: 3, review: "Lorem ipsum dolor sit amet...", reviewError:false, showContactForm:true }` | 
 <br/>
 
 

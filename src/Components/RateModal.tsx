@@ -5,9 +5,12 @@ import { AirbnbRating } from 'react-native-ratings';
 
 import { RateModalStyles } from '../Assets/Styles/RateModal';
 import { Button } from './Button';
+import { ButtonContainer } from './ButtonContainer';
 import { TextBox } from './TextBox';
 
 import { IProps, IState } from '../Interfaces/IRateModal';
+
+let prevIsModalOpen = false;
 
 export class RateModal extends Component<IProps, IState> {
 
@@ -25,35 +28,27 @@ export class RateModal extends Component<IProps, IState> {
 		storeRedirectThreshold: 3,
 		starLabels: ['Terrible', 'Bad', 'Okay', 'Good', 'Great'],
 		isTransparent: true,
+		styles: {},
+		ratingProps: {},
+		ratingComponent: AirbnbRating,
+		modalProps: {},
+		onSendReview: () => true,
 	};
 
 	constructor(props: IProps) {
 		super(props);
 
 		this.state = {
-			isModalOpen: props.isModalOpen,
-			rating: 5,
+			rating: props.defaultStars,
 			review: '',
 			reviewError: false,
 			showContactForm: false,
 		};
-	}
 
-	public render(): JSX.Element {
-		const { onClosed, isTransparent } = this.props;
-		const { isModalOpen } = this.state;
-		return (
-			<Modal transparent={isTransparent} visible={isModalOpen} onRequestClose={() => onClosed}>
-				{this.renderRateModal()}
-			</Modal>
-		);
-	}
-
-	public componentWillMount(): void {
 		const { OS } = Platform;
-		const { totalStarCount, isVisible, starLabels, playStoreUrl, iTunesStoreUrl } = this.props;
+		const { totalStarCount, isVisible, starLabels, playStoreUrl, iTunesStoreUrl } = props;
 		if (isVisible && starLabels.length !== totalStarCount) {
-			throw new Error('You should define at least 5 review values');
+			throw new Error(`You should define at least ${starLabels.length} review values`);
 		} else if (OS === 'android' && !playStoreUrl) {
 			throw new Error('Enter a valid store url');
 		} else if (OS === 'ios' && !iTunesStoreUrl) {
@@ -61,12 +56,37 @@ export class RateModal extends Component<IProps, IState> {
 		}
 	}
 
-	public componentWillReceiveProps(nextProps): void {
-		if (this.props.isModalOpen !== nextProps.isModalOpen) {
-			this.setState({
-				isModalOpen: nextProps.isModalOpen,
-			});
+	public render(): JSX.Element {
+		const { onClosed, isTransparent, modalProps, isModalOpen } = this.props;
+
+		return (
+			<Modal
+				transparent={isTransparent}
+				visible={isModalOpen}
+				onRequestClose={onClosed}
+				{...modalProps}
+			>
+				{this.renderRateModal()}
+			</Modal>
+		);
+	}
+
+	public static getDerivedStateFromProps(nextProps: IProps): {rating?: number, showContactForm?: boolean} | null {
+		const { isModalOpen, defaultStars } = nextProps;
+		const isMounting = isModalOpen && !prevIsModalOpen;
+		prevIsModalOpen = isModalOpen;
+
+		if (isMounting) {
+			// We might need some resetting, when the modal appears
+			return {
+				rating: defaultStars,
+				showContactForm: false,
+				// We don't reset the previous (not sent) review,
+				// because the user might continue it
+			};
 		}
+
+		return null;
 	}
 
 	private onStarSelected(e: number): void {
@@ -79,11 +99,11 @@ export class RateModal extends Component<IProps, IState> {
 
 	private renderRateModal(): JSX.Element {
 		const { modalContainer, modalWrapper } = RateModalStyles;
-		const { style } = this.props;
+		const { style, styles } = this.props;
 
 		return (
-			<View style={[modalWrapper, style]}>
-				<View style={modalContainer}>
+			<View style={[modalWrapper, style, styles.modalWrapper]}>
+				<View style={[modalContainer, styles.modalContainer]}>
 					{!this.state.showContactForm && this.renderRatingView()}
 					{this.state.showContactForm && this.renderContactFormView()}
 				</View>
@@ -92,100 +112,181 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	private renderRatingView(): JSX.Element {
-		const { title, buttonContainer, button, buttonCancel, buttonCancelText } = RateModalStyles;
-		const { starLabels, isVisible, cancelBtnText, totalStarCount, defaultStars, rateBtnText, modalTitle } = this.props;
+		const { title } = RateModalStyles;
+		const { modalTitle, styles } = this.props;
 
 		return (
 			<React.Fragment>
-				<Text style={title}>{modalTitle}</Text>
-				<AirbnbRating
-					count={totalStarCount}
-					defaultRating={defaultStars}
-					showRating={isVisible}
-					reviews={starLabels}
-					onFinishRating={(e: number) => this.onStarSelected(e)}
-				/>
+				<Text style={[title, styles.title]}>{modalTitle}</Text>
 
-				<View style={buttonContainer}>
-					<View style={{ flex: 1 }}></View>
-					<Button
-						text={cancelBtnText}
-						containerStyle={[button, buttonCancel]}
-						textStyle={buttonCancelText}
-						onPress={this.onClosed.bind(this)}
-					/>
-					<Button text={rateBtnText} containerStyle={button} onPress={this.sendRate.bind(this)} />
-				</View>
+				{this.renderRating()}
+
+				<ButtonContainer styles={ styles }>
+					{this.renderCancelButton()}
+					{this.renderRateButton()}
+				</ButtonContainer>
 			</React.Fragment>
 		);
 	}
 
 	private renderContactFormView(): JSX.Element {
-		const { buttonContainer, button } = RateModalStyles;
-		const { commentPlaceholderText, sendBtnText } = this.props;
+		const { styles } = this.props;
 
 		return (
 			<React.Fragment>
-				<TextBox
-					containerStyle={[RateModalStyles.textBox]}
-					textStyle={{ paddingVertical: 5 }}
-					value={this.state.review}
-					placeholder={commentPlaceholderText}
-					multiline
-					autoFocus
-					onChangeText={(value: string) => this.setState({ review: value, reviewError: false })}
-				/>
+				{this.renderContactForm()}
+
 				<View>
 					{this.state.reviewError && this.renderReviewError()}
 				</View>
-				<View style={buttonContainer}>
-					<View style={{ flex: 1 }}></View>
-					<Button text={sendBtnText} containerStyle={button} onPress={this.sendContactUsForm.bind(this)} />
-				</View>
+
+				<ButtonContainer styles={ styles }>
+					{this.renderCancelButton()}
+					{this.renderSendButton()}
+				</ButtonContainer>
 			</React.Fragment>
 		);
 	}
 
-	private renderReviewError(): JSX.Element {
-		const { errorText } = RateModalStyles;
-		const { emptyCommentErrorMessage } = this.props;
+	private renderRating(): JSX.Element {
+		const { ratingProps, ratingComponent, starLabels, isVisible, totalStarCount, defaultStars } = this.props;
+
+		const RatingComponent = ratingComponent;
 
 		return (
-			<Text style={errorText}>
+			<RatingComponent
+				count={totalStarCount}
+				defaultRating={defaultStars}
+				showRating={isVisible}
+				reviews={starLabels}
+				onFinishRating={(e: number) => this.onStarSelected(e)}
+				{...ratingProps}
+			/>
+		);
+	}
+
+  private renderContactForm(): JSX.Element {
+		const { commentPlaceholderText, styles } = this.props;
+
+		return (
+			<TextBox
+				containerStyle={[RateModalStyles.textBox, styles.textBox]}
+				textStyle={{ paddingVertical: 5 }}
+				value={this.state.review}
+				placeholder={commentPlaceholderText}
+				multiline
+				autoFocus
+				onChangeText={(value: string) => this.setState({ review: value, reviewError: false })}
+			/>
+		);
+	}
+
+	private renderCancelButton(): JSX.Element {
+		const { button, buttonCancel, buttonCancelText } = RateModalStyles;
+		const { styles, cancelBtnText } = this.props;
+
+		return (
+			<Button
+				text={cancelBtnText}
+				containerStyle={[
+					button,
+					buttonCancel,
+					styles.button,
+					styles.buttonCancel,
+				]}
+				textStyle={[buttonCancelText, styles.buttonText, styles.buttonCancelText]}
+				onPress={this.handleCancel.bind(this)}
+			/>
+		);
+	}
+
+	private renderRateButton(): JSX.Element {
+		const { button } = RateModalStyles;
+		const { rateBtnText, styles } = this.props;
+
+		return (
+			<Button
+				text={rateBtnText}
+				containerStyle={[button, styles.button]}
+				textStyle={styles.buttonText}
+				onPress={this.sendRate.bind(this)}
+			/>
+		);
+	}
+
+	private renderSendButton(): JSX.Element {
+		const { button } = RateModalStyles;
+		const { sendBtnText, styles } = this.props;
+
+		const { review } = this.state;
+
+		return (
+			<Button
+				text={sendBtnText}
+				disabled={review === '' && typeof styles.buttonDisabled !== 'undefined'}
+				containerStyle={[
+					button,
+					styles.button,
+					...(review === '' ? [styles.buttonDisabled] : []),
+				]}
+				textStyle={styles.buttonText}
+				onPress={this.sendContactUsForm.bind(this)}
+			/>
+		);
+	}
+
+  private renderReviewError(): JSX.Element {
+		const { errorText } = RateModalStyles;
+		const { emptyCommentErrorMessage, styles } = this.props;
+
+		return (
+			<Text style={[errorText, styles.errorText]}>
 				{emptyCommentErrorMessage}
 			</Text>
 		);
 	}
 
-	private onClosed(): void {
-		const { onClosed } = this.props;
-		if (onClosed) {
-			onClosed();
-		} else {
-			this.setState({ isModalOpen: false });
-		}
+	private handleCancel(): void {
+		this.props.onClosed();
 	}
 
 	private sendRate(): void {
-		const { storeRedirectThreshold, playStoreUrl, iTunesStoreUrl, onSendReview } = this.props;
+		const { storeRedirectThreshold, playStoreUrl, iTunesStoreUrl, onSendReview, onClosed } = this.props;
+
 		if (this.state.rating > storeRedirectThreshold) {
+			// That's why we are actually here
 			Platform.OS === 'ios' ?
 				Linking.openURL(iTunesStoreUrl) :
 				Linking.openURL(playStoreUrl);
-			this.setState({ isModalOpen: false });
-			onSendReview();
+
+      // We might use that info as well as well
+      onSendReview({ ...this.state });
+
+      // Close dialog
+      onClosed();
 		} else {
 			this.setState({ showContactForm: true });
 		}
 	}
 
 	private sendContactUsForm(): void {
-		const { sendContactUsForm } = this.props;
+		const { sendContactUsForm, onClosed } = this.props;
+
 		if (this.state.review.length > 0) {
 			if (sendContactUsForm && typeof sendContactUsForm === 'function') {
-				return sendContactUsForm({ ...this.state });
+				// Reset window
+				this.setState({
+					review: '',
+				})
+
+				// Send data
+  			sendContactUsForm({ ...this.state });
+
+  			// Close dialog
+  			onClosed();
+			} else {
+				throw new Error('You should generate sendContactUsForm function');
 			}
-			throw new Error('You should generate sendContactUsForm function');
 		} else {
 			this.setState({ reviewError: true });
 		}

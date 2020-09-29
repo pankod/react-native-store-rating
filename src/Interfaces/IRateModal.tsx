@@ -1,4 +1,5 @@
-import { ViewStyle } from 'react-native';
+import { ElementType } from 'react';
+import { ViewStyle, TextStyle } from 'react-native';
 
 export interface IProps {
 	modalTitle: string;
@@ -18,6 +19,27 @@ export interface IProps {
 	playStoreUrl?: string;
 	iTunesStoreUrl?: string;
 	style: ViewStyle;
+	styles: {
+		title: TextStyle,
+		modalWrapper: ViewStyle,
+		buttonContainer: ViewStyle,
+		button: ViewStyle,
+		buttonText: TextStyle,
+		buttonCancel: ViewStyle,
+		modalContainer: ViewStyle,
+		buttonCancelText: TextStyle,
+		textBox: ViewStyle,
+		buttonDisabled: ViewStyle,
+		errorText: TextStyle,
+	};
+	ratingProps: {
+	  selectedColor?: string;
+	};
+	ratingComponent?: ElementType;
+	modalProps?: {
+		animationType?: 'slide' | 'fade' | 'none',
+	};
+	onSendReview: (state: IState) => void;
 	starLabels: string[];
 	isTransparent: boolean;
 	onSendReview: () => void;
@@ -27,5 +49,4 @@ export interface IState {
 	showContactForm: boolean;
 	review: string;
 	reviewError: boolean;
-	isModalOpen: boolean;
 }
