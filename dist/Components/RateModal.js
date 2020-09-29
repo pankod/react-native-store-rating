@@ -134,7 +134,6 @@ class RateModal extends react_1.Component {
             react_native_1.Platform.OS === 'ios' ?
                 react_native_1.Linking.openURL(iTunesStoreUrl) :
                 react_native_1.Linking.openURL(playStoreUrl);
-
             onSendReview({ ...this.state });
             onClosed();
         }

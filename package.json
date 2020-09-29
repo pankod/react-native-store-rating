@@ -1,6 +1,6 @@
 {
 	"name": "@pankod/react-native-store-rating",
-	"version": "1.0.2",
+	"version": "1.1.0",
 	"description": "React Native store rating like Airbnb",
 	"scripts": {
 		"build": "rm -rf ./dist/** && tsc",

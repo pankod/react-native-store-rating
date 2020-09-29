@@ -41,7 +41,6 @@ export interface IProps {
     onSendReview: (state: IState) => void;
     starLabels: string[];
     isTransparent: boolean;
-    onSendReview: () => void;
 }
 export interface IState {
     rating: number;
