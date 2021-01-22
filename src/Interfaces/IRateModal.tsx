@@ -45,6 +45,18 @@ export interface IProps {
 	onSendReview: (state: IState) => void;
 	starLabels: string[];
 	isTransparent: boolean;
+
+	containerStyle?: ViewStyle;
+	titleStyle?: TextStyle;
+	cancelButtonTextStyle?: TextStyle;
+	cancelButtonContainerStyle?: ViewStyle;
+	rateButtonTextStyle?: TextStyle;
+	rateButtonContainerStyle?: ViewStyle;
+	errorTextStyle?: TextStyle;
+	placeholderTextColor?: string;
+	selectedColor?: string;
+	reviewColor?: string;
+	textBoxStyle?: TextStyle;
 }
 export interface IState {
 	rating: number;
