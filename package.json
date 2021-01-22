@@ -1,6 +1,6 @@
 {
-	"name": "@pankod/react-native-store-rating",
-	"version": "1.1.0",
+	"name": "react-native-store-rating",
+	"version": "1.0.1",
 	"description": "React Native store rating like Airbnb",
 	"scripts": {
 		"build": "rm -rf ./dist/** && tsc",
@@ -10,7 +10,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/pankod/react-native-store-rating"
+		"url": "git+https://github.com/pankod/react-native-store-rating.git"
 	},
 	"bugs": {
 		"url": "https://github.com/pankod/react-native-store-rating/issues"
@@ -31,14 +31,8 @@
 	],
 	"author": "Pankod",
 	"contributors": [
-		{
-			"name": "selcuksarikoz",
-			"email": "selcuk@pankod.com"
-		},
-		{
-			"name": "necatiozmen",
-			"email": "necati.ozmen.9@gmail.com"
-		}
+		"selcuksarikoz <selcuk@pankod.com>",
+		"necatiozmen <necati.ozmen.9@gmail.com>"
 	],
 	"license": "MIT",
 	"dependencies": {
@@ -59,5 +53,8 @@
 		"react": "*",
 		"react-native": "*",
 		"react-native-ratings": "^4.1.0"
+	},
+	"directories": {
+		"example": "example"
 	}
 }

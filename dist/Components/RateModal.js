@@ -1,12 +1,25 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RateModal = void 0;
 const react_1 = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const react_native_ratings_1 = require("react-native-ratings");
@@ -20,20 +33,20 @@ class RateModal extends react_1.Component {
         super(props);
         this.state = {
             rating: props.defaultStars,
-            review: '',
+            review: "",
             reviewError: false,
             showContactForm: false,
         };
         const { OS } = react_native_1.Platform;
-        const { totalStarCount, isVisible, starLabels, playStoreUrl, iTunesStoreUrl } = props;
+        const { totalStarCount, isVisible, starLabels, playStoreUrl, iTunesStoreUrl, } = props;
         if (isVisible && starLabels.length !== totalStarCount) {
             throw new Error(`You should define at least ${starLabels.length} review values`);
         }
-        else if (OS === 'android' && !playStoreUrl) {
-            throw new Error('Enter a valid store url');
+        else if (OS === "android" && !playStoreUrl) {
+            throw new Error("Enter a valid store url");
         }
-        else if (OS === 'ios' && !iTunesStoreUrl) {
-            throw new Error('Enter a valid store url');
+        else if (OS === "ios" && !iTunesStoreUrl) {
+            throw new Error("Enter a valid store url");
         }
     }
     render() {
@@ -87,13 +100,13 @@ class RateModal extends react_1.Component {
                 this.renderSendButton())));
     }
     renderRating() {
-        const { ratingProps, ratingComponent, starLabels, isVisible, totalStarCount, defaultStars } = this.props;
+        const { ratingProps, ratingComponent, starLabels, isVisible, totalStarCount, defaultStars, } = this.props;
         const RatingComponent = ratingComponent;
         return (react_1.default.createElement(RatingComponent, Object.assign({ count: totalStarCount, defaultRating: defaultStars, showRating: isVisible, reviews: starLabels, onFinishRating: (e) => this.onStarSelected(e) }, ratingProps)));
     }
     renderContactForm() {
         const { commentPlaceholderText, styles } = this.props;
-        return (react_1.default.createElement(TextBox_1.TextBox, { containerStyle: [RateModal_1.RateModalStyles.textBox, styles.textBox], textStyle: { paddingVertical: 5 }, value: this.state.review, placeholder: commentPlaceholderText, multiline: true, autoFocus: true, onChangeText: (value) => this.setState({ review: value, reviewError: false }) }));
+        return (react_1.default.createElement(TextBox_1.TextBox, { containerStyle: [RateModal_1.RateModalStyles.textBox, styles.textBox], textStyle: [{ paddingVertical: 5 }, styles.textBoxStyle], value: this.state.review, placeholder: commentPlaceholderText, placeholderTextColor: styles.placeholderTextColor, multiline: true, autoFocus: true, onChangeText: (value) => this.setState({ review: value, reviewError: false }) }));
     }
     renderCancelButton() {
         const { button, buttonCancel, buttonCancelText } = RateModal_1.RateModalStyles;
@@ -103,7 +116,11 @@ class RateModal extends react_1.Component {
                 buttonCancel,
                 styles.button,
                 styles.buttonCancel,
-            ], textStyle: [buttonCancelText, styles.buttonText, styles.buttonCancelText], onPress: this.handleCancel.bind(this) }));
+            ], textStyle: [
+                buttonCancelText,
+                styles.buttonText,
+                styles.buttonCancelText,
+            ], onPress: this.handleCancel.bind(this) }));
     }
     renderRateButton() {
         const { button } = RateModal_1.RateModalStyles;
@@ -114,10 +131,11 @@ class RateModal extends react_1.Component {
         const { button } = RateModal_1.RateModalStyles;
         const { sendBtnText, styles } = this.props;
         const { review } = this.state;
-        return (react_1.default.createElement(Button_1.Button, { text: sendBtnText, disabled: review === '' && typeof styles.buttonDisabled !== 'undefined', containerStyle: [
+        return (react_1.default.createElement(Button_1.Button, { text: sendBtnText, disabled: review === "" &&
+                typeof styles.buttonDisabled !== "undefined", containerStyle: [
                 button,
                 styles.button,
-                ...(review === '' ? [styles.buttonDisabled] : []),
+                ...(review === "" ? [styles.buttonDisabled] : []),
             ], textStyle: styles.buttonText, onPress: this.sendContactUsForm.bind(this) }));
     }
     renderReviewError() {
@@ -129,11 +147,16 @@ class RateModal extends react_1.Component {
         this.props.onClosed();
     }
     sendRate() {
-        const { storeRedirectThreshold, playStoreUrl, iTunesStoreUrl, onSendReview, onClosed } = this.props;
+        const { storeRedirectThreshold, playStoreUrl, iTunesStoreUrl, onSendReview, onClosed, onRated, } = this.props;
         if (this.state.rating > storeRedirectThreshold) {
-            react_native_1.Platform.OS === 'ios' ?
-                react_native_1.Linking.openURL(iTunesStoreUrl) :
-                react_native_1.Linking.openURL(playStoreUrl);
+            if (onRated) {
+                onRated();
+            }
+            else {
+                react_native_1.Platform.OS === "ios"
+                    ? react_native_1.Linking.openURL(iTunesStoreUrl)
+                    : react_native_1.Linking.openURL(playStoreUrl);
+            }
             onSendReview({ ...this.state });
             onClosed();
         }
@@ -144,15 +167,15 @@ class RateModal extends react_1.Component {
     sendContactUsForm() {
         const { sendContactUsForm, onClosed } = this.props;
         if (this.state.review.length > 0) {
-            if (sendContactUsForm && typeof sendContactUsForm === 'function') {
+            if (sendContactUsForm && typeof sendContactUsForm === "function") {
                 this.setState({
-                    review: '',
+                    review: "",
                 });
                 sendContactUsForm({ ...this.state });
                 onClosed();
             }
             else {
-                throw new Error('You should generate sendContactUsForm function');
+                throw new Error("You should generate sendContactUsForm function");
             }
         }
         else {
@@ -160,19 +183,20 @@ class RateModal extends react_1.Component {
         }
     }
 }
+exports.RateModal = RateModal;
 RateModal.defaultProps = {
-    modalTitle: 'How many stars do you give to this app?',
-    cancelBtnText: 'Cancel',
+    modalTitle: "How many stars do you give to this app?",
+    cancelBtnText: "Cancel",
     totalStarCount: 5,
     defaultStars: 5,
-    emptyCommentErrorMessage: 'Please specify your opinion.',
+    emptyCommentErrorMessage: "Please specify your opinion.",
     isVisible: true,
     isModalOpen: false,
-    commentPlaceholderText: 'You can type your comments here ...',
-    rateBtnText: 'Rate',
-    sendBtnText: 'Send',
+    commentPlaceholderText: "You can type your comments here ...",
+    rateBtnText: "Rate",
+    sendBtnText: "Send",
     storeRedirectThreshold: 3,
-    starLabels: ['Terrible', 'Bad', 'Okay', 'Good', 'Great'],
+    starLabels: ["Terrible", "Bad", "Okay", "Good", "Great"],
     isTransparent: true,
     styles: {},
     ratingProps: {},
@@ -180,5 +204,4 @@ RateModal.defaultProps = {
     modalProps: {},
     onSendReview: () => true,
 };
-exports.RateModal = RateModal;
 //# sourceMappingURL=RateModal.js.map

@@ -1,10 +1,11 @@
-import { KeyboardType, KeyboardTypeIOS, NativeSyntheticEvent, ReturnKeyType, TextInputChangeEventData, TextStyle, ViewStyle } from 'react-native';
+import { KeyboardType, KeyboardTypeIOS, NativeSyntheticEvent, ReturnKeyType, TextInputChangeEventData, TextStyle, ViewStyle } from "react-native";
 export interface IProps {
     accessibilityLabel?: string;
-    autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+    autoCapitalize?: "none" | "sentences" | "words" | "characters";
     label?: string;
     value?: string;
     placeholder?: string;
+    placeholderTextColor?: string;
     returnKeyType?: ReturnKeyType;
     secureTextEntry?: boolean;
     keyboardType?: KeyboardType | KeyboardTypeIOS;

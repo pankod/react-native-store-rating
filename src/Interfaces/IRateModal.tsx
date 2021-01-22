@@ -1,5 +1,5 @@
-import { ElementType } from 'react';
-import { ViewStyle, TextStyle } from 'react-native';
+import { ElementType } from "react";
+import { ViewStyle, TextStyle } from "react-native";
 
 export interface IProps {
 	modalTitle: string;
@@ -15,29 +15,32 @@ export interface IProps {
 	storeRedirectThreshold: number;
 	onStarSelected: (e: number) => void;
 	onClosed: () => void;
+	onRated: () => void;
 	sendContactUsForm: (state: IState) => void;
 	playStoreUrl?: string;
 	iTunesStoreUrl?: string;
 	style: ViewStyle;
 	styles: {
-		title: TextStyle,
-		modalWrapper: ViewStyle,
-		buttonContainer: ViewStyle,
-		button: ViewStyle,
-		buttonText: TextStyle,
-		buttonCancel: ViewStyle,
-		modalContainer: ViewStyle,
-		buttonCancelText: TextStyle,
-		textBox: ViewStyle,
-		buttonDisabled: ViewStyle,
-		errorText: TextStyle,
+		title: TextStyle;
+		modalWrapper: ViewStyle;
+		buttonContainer: ViewStyle;
+		button: ViewStyle;
+		buttonText: TextStyle;
+		buttonCancel: ViewStyle;
+		modalContainer: ViewStyle;
+		buttonCancelText: TextStyle;
+		textBox: ViewStyle;
+		buttonDisabled: ViewStyle;
+		errorText: TextStyle;
+		textBoxStyle?: TextStyle;
+		placeholderTextColor?: string;
 	};
 	ratingProps: {
-	  selectedColor?: string;
+		selectedColor?: string;
 	};
 	ratingComponent?: ElementType;
 	modalProps?: {
-		animationType?: 'slide' | 'fade' | 'none',
+		animationType?: "slide" | "fade" | "none";
 	};
 	onSendReview: (state: IState) => void;
 	starLabels: string[];

@@ -1,6 +1,6 @@
-import { Component } from 'react';
-import { AirbnbRating } from 'react-native-ratings';
-import { IProps, IState } from '../Interfaces/IRateModal';
+import { Component } from "react";
+import { AirbnbRating } from "react-native-ratings";
+import { IProps, IState } from "../Interfaces/IRateModal";
 export declare class RateModal extends Component<IProps, IState> {
     static defaultProps: {
         modalTitle: string;

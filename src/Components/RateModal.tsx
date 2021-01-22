@@ -1,32 +1,30 @@
+import React, { Component } from "react";
+import { Linking, Modal, Platform, Text, View } from "react-native";
+import { AirbnbRating } from "react-native-ratings";
 
-import React, { Component } from 'react';
-import { Linking, Modal, Platform, Text, View } from 'react-native';
-import { AirbnbRating } from 'react-native-ratings';
+import { RateModalStyles } from "../Assets/Styles/RateModal";
+import { Button } from "./Button";
+import { ButtonContainer } from "./ButtonContainer";
+import { TextBox } from "./TextBox";
 
-import { RateModalStyles } from '../Assets/Styles/RateModal';
-import { Button } from './Button';
-import { ButtonContainer } from './ButtonContainer';
-import { TextBox } from './TextBox';
-
-import { IProps, IState } from '../Interfaces/IRateModal';
+import { IProps, IState } from "../Interfaces/IRateModal";
 
 let prevIsModalOpen = false;
 
 export class RateModal extends Component<IProps, IState> {
-
 	public static defaultProps = {
-		modalTitle: 'How many stars do you give to this app?',
-		cancelBtnText: 'Cancel',
+		modalTitle: "How many stars do you give to this app?",
+		cancelBtnText: "Cancel",
 		totalStarCount: 5,
 		defaultStars: 5,
-		emptyCommentErrorMessage: 'Please specify your opinion.',
+		emptyCommentErrorMessage: "Please specify your opinion.",
 		isVisible: true,
 		isModalOpen: false,
-		commentPlaceholderText: 'You can type your comments here ...',
-		rateBtnText: 'Rate',
-		sendBtnText: 'Send',
+		commentPlaceholderText: "You can type your comments here ...",
+		rateBtnText: "Rate",
+		sendBtnText: "Send",
 		storeRedirectThreshold: 3,
-		starLabels: ['Terrible', 'Bad', 'Okay', 'Good', 'Great'],
+		starLabels: ["Terrible", "Bad", "Okay", "Good", "Great"],
 		isTransparent: true,
 		styles: {},
 		ratingProps: {},
@@ -40,19 +38,27 @@ export class RateModal extends Component<IProps, IState> {
 
 		this.state = {
 			rating: props.defaultStars,
-			review: '',
+			review: "",
 			reviewError: false,
 			showContactForm: false,
 		};
 
 		const { OS } = Platform;
-		const { totalStarCount, isVisible, starLabels, playStoreUrl, iTunesStoreUrl } = props;
+		const {
+			totalStarCount,
+			isVisible,
+			starLabels,
+			playStoreUrl,
+			iTunesStoreUrl,
+		} = props;
 		if (isVisible && starLabels.length !== totalStarCount) {
-			throw new Error(`You should define at least ${starLabels.length} review values`);
-		} else if (OS === 'android' && !playStoreUrl) {
-			throw new Error('Enter a valid store url');
-		} else if (OS === 'ios' && !iTunesStoreUrl) {
-			throw new Error('Enter a valid store url');
+			throw new Error(
+				`You should define at least ${starLabels.length} review values`
+			);
+		} else if (OS === "android" && !playStoreUrl) {
+			throw new Error("Enter a valid store url");
+		} else if (OS === "ios" && !iTunesStoreUrl) {
+			throw new Error("Enter a valid store url");
 		}
 	}
 
@@ -71,7 +77,9 @@ export class RateModal extends Component<IProps, IState> {
 		);
 	}
 
-	public static getDerivedStateFromProps(nextProps: IProps): {rating?: number, showContactForm?: boolean} | null {
+	public static getDerivedStateFromProps(
+		nextProps: IProps
+	): { rating?: number; showContactForm?: boolean } | null {
 		const { isModalOpen, defaultStars } = nextProps;
 		const isMounting = isModalOpen && !prevIsModalOpen;
 		prevIsModalOpen = isModalOpen;
@@ -121,7 +129,7 @@ export class RateModal extends Component<IProps, IState> {
 
 				{this.renderRating()}
 
-				<ButtonContainer styles={ styles }>
+				<ButtonContainer styles={styles}>
 					{this.renderCancelButton()}
 					{this.renderRateButton()}
 				</ButtonContainer>
@@ -140,7 +148,7 @@ export class RateModal extends Component<IProps, IState> {
 					{this.state.reviewError && this.renderReviewError()}
 				</View>
 
-				<ButtonContainer styles={ styles }>
+				<ButtonContainer styles={styles}>
 					{this.renderCancelButton()}
 					{this.renderSendButton()}
 				</ButtonContainer>
@@ -149,7 +157,14 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	private renderRating(): JSX.Element {
-		const { ratingProps, ratingComponent, starLabels, isVisible, totalStarCount, defaultStars } = this.props;
+		const {
+			ratingProps,
+			ratingComponent,
+			starLabels,
+			isVisible,
+			totalStarCount,
+			defaultStars,
+		} = this.props;
 
 		const RatingComponent = ratingComponent;
 
@@ -165,18 +180,21 @@ export class RateModal extends Component<IProps, IState> {
 		);
 	}
 
-  private renderContactForm(): JSX.Element {
+	private renderContactForm(): JSX.Element {
 		const { commentPlaceholderText, styles } = this.props;
 
 		return (
 			<TextBox
 				containerStyle={[RateModalStyles.textBox, styles.textBox]}
-				textStyle={{ paddingVertical: 5 }}
+				textStyle={[{ paddingVertical: 5 }, styles.textBoxStyle]}
 				value={this.state.review}
 				placeholder={commentPlaceholderText}
+				placeholderTextColor={styles.placeholderTextColor}
 				multiline
 				autoFocus
-				onChangeText={(value: string) => this.setState({ review: value, reviewError: false })}
+				onChangeText={(value: string) =>
+					this.setState({ review: value, reviewError: false })
+				}
 			/>
 		);
 	}
@@ -194,7 +212,11 @@ export class RateModal extends Component<IProps, IState> {
 					styles.button,
 					styles.buttonCancel,
 				]}
-				textStyle={[buttonCancelText, styles.buttonText, styles.buttonCancelText]}
+				textStyle={[
+					buttonCancelText,
+					styles.buttonText,
+					styles.buttonCancelText,
+				]}
 				onPress={this.handleCancel.bind(this)}
 			/>
 		);
@@ -223,11 +245,14 @@ export class RateModal extends Component<IProps, IState> {
 		return (
 			<Button
 				text={sendBtnText}
-				disabled={review === '' && typeof styles.buttonDisabled !== 'undefined'}
+				disabled={
+					review === "" &&
+					typeof styles.buttonDisabled !== "undefined"
+				}
 				containerStyle={[
 					button,
 					styles.button,
-					...(review === '' ? [styles.buttonDisabled] : []),
+					...(review === "" ? [styles.buttonDisabled] : []),
 				]}
 				textStyle={styles.buttonText}
 				onPress={this.sendContactUsForm.bind(this)}
@@ -235,7 +260,7 @@ export class RateModal extends Component<IProps, IState> {
 		);
 	}
 
-  private renderReviewError(): JSX.Element {
+	private renderReviewError(): JSX.Element {
 		const { errorText } = RateModalStyles;
 		const { emptyCommentErrorMessage, styles } = this.props;
 
@@ -251,19 +276,29 @@ export class RateModal extends Component<IProps, IState> {
 	}
 
 	private sendRate(): void {
-		const { storeRedirectThreshold, playStoreUrl, iTunesStoreUrl, onSendReview, onClosed } = this.props;
+		const {
+			storeRedirectThreshold,
+			playStoreUrl,
+			iTunesStoreUrl,
+			onSendReview,
+			onClosed,
+			onRated,
+		} = this.props;
 
 		if (this.state.rating > storeRedirectThreshold) {
-			// That's why we are actually here
-			Platform.OS === 'ios' ?
-				Linking.openURL(iTunesStoreUrl) :
-				Linking.openURL(playStoreUrl);
+			if (onRated) {
+				onRated();
+			} else {
+				// That's why we are actually here
+				Platform.OS === "ios"
+					? Linking.openURL(iTunesStoreUrl)
+					: Linking.openURL(playStoreUrl);
+			}
+			// We might use that info as well as well
+			onSendReview({ ...this.state });
 
-      // We might use that info as well as well
-      onSendReview({ ...this.state });
-
-      // Close dialog
-      onClosed();
+			// Close dialog
+			onClosed();
 		} else {
 			this.setState({ showContactForm: true });
 		}
@@ -273,19 +308,21 @@ export class RateModal extends Component<IProps, IState> {
 		const { sendContactUsForm, onClosed } = this.props;
 
 		if (this.state.review.length > 0) {
-			if (sendContactUsForm && typeof sendContactUsForm === 'function') {
+			if (sendContactUsForm && typeof sendContactUsForm === "function") {
 				// Reset window
 				this.setState({
-					review: '',
-				})
+					review: "",
+				});
 
 				// Send data
-  			sendContactUsForm({ ...this.state });
+				sendContactUsForm({ ...this.state });
 
-  			// Close dialog
-  			onClosed();
+				// Close dialog
+				onClosed();
 			} else {
-				throw new Error('You should generate sendContactUsForm function');
+				throw new Error(
+					"You should generate sendContactUsForm function"
+				);
 			}
 		} else {
 			this.setState({ reviewError: true });
