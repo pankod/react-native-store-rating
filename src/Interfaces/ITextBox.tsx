@@ -7,15 +7,16 @@ import {
 	TextInputChangeEventData,
 	TextStyle,
 	ViewStyle,
-} from 'react-native';
+} from "react-native";
 
 // tslint:disable-next-line: no-namespace
 export interface IProps {
 	accessibilityLabel?: string;
-	autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+	autoCapitalize?: "none" | "sentences" | "words" | "characters";
 	label?: string;
 	value?: string;
 	placeholder?: string;
+	placeholderTextColor?: string;
 	returnKeyType?: ReturnKeyType;
 	secureTextEntry?: boolean;
 	keyboardType?: KeyboardType | KeyboardTypeIOS;
