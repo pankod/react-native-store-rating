@@ -122,7 +122,7 @@ export default class example extends Component {
 				sendBtnText={'Send'}
 				commentPlaceholderText={'Placeholder text'}
 				emptyCommentErrorMessage={'Empty comment error message'}
-				iTunesStoreUrl={'market://details?id=${APP_PACKAGE_NAME}'}
+				iTunesStoreUrl={'itms-apps://itunes.apple.com/app/${APP_ID}'}
 				isModalOpen={this.state.isModalOpen}
 				storeRedirectThreshold={3}
 				style={{
