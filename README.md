@@ -42,13 +42,13 @@ Ratings and reviews influence how your app ranks in search results, and can affe
 
 ## Getting started
 ```
-$ npm install react-native-store-rating --save
+$ npm i @pankod/react-native-store-rating
 ```
 
 or
 
 ```
-$ yarn add react-native-store-rating
+$ yarn add @pankod/react-native-store-rating
 ```
 
 ## Usage
@@ -82,7 +82,7 @@ Comment modal will be opened if the given star rate equal or less then 3.
 ``` javascript
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
-import RateModal from 'react-native-store-rating'
+import RateModal from '@pankod/react-native-store-rating'
 
 export default class example extends Component {
 	state = {
