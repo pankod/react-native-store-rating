@@ -15,6 +15,10 @@ export let RateModalStyles = StyleSheet.create({
 		width: 130,
 	} as ViewStyle,
 
+	buttonSpacer: {
+		flex: 1
+	} as ViewStyle,
+
 	button: {
 		backgroundColor: Color.LightGreen[600],
 		flex: 0,
@@ -64,6 +68,10 @@ export let RateModalStyles = StyleSheet.create({
 		borderWidth: 0,
 		margin: 20,
 	} as ViewStyle,
+
+	textBoxText: {
+		paddingVertical: 5
+	} as TextStyle,
 
 	title: {
 		fontSize: 20,

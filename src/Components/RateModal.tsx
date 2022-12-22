@@ -171,7 +171,7 @@ export class RateModal extends Component<IProps, IState> {
 		return (
 			<TextBox
 				containerStyle={[RateModalStyles.textBox, styles.textBox]}
-				textStyle={{ paddingVertical: 5 }}
+				textStyle={[RateModalStyles.textBoxText, styles.textBoxText]}
 				value={this.state.review}
 				placeholder={commentPlaceholderText}
 				multiline
